@@ -3,7 +3,7 @@ require 'token'
 class User < ActiveRecord::Base
 
   has_one :credential
-  has_many :leads
+  has_many :clients
 
   class << self
 

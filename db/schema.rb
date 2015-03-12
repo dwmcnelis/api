@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150205164453) do
     t.datetime "updated_at"
   end
 
-  create_table "leads", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id"
     t.string   "first_name", limit: 40
     t.string   "last_name",  limit: 40

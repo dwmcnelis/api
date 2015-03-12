@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-describe 'Lead' do
+describe 'Client' do
   #it_behaves_like "xxx_concern"
 
   #before(:each) do
   #  @defaults = { player_guid: 'jeterde01', birth_year: 1974, name_first: 'Derek', name_last: 'Jeter' }
   #end
 
-  it "should create a new Lead instance given valid attributes" do
-    Lead.create!({
+  it "should create a new Client instance given valid attributes" do
+    Client.create!({
                    first_name: Faker::Name.first_name,
                    last_name: Faker::Name.last_name,
                    email: Faker::Internet.email,

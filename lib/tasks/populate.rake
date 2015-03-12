@@ -1,14 +1,14 @@
 namespace :db do
   task populate: :environment do
 
-    Lead.delete_all
+    Client.delete_all
 
     def random_status
       ['new', 'in progress', 'closed', 'bad'].sample
     end
 
     20.times do
-      Lead.create(
+      Client.create(
         user_id: 'cddeda64-3f26-4a09-b976-492f9e0f22f2',
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,

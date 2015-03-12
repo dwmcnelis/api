@@ -1,4 +1,4 @@
-class Lead < ActiveRecord::Base
+class Client < ActiveRecord::Base
 
   def owner?(user)
     self.user_id == user.id

@@ -16,7 +16,7 @@ class API < Grape::API
   #rescue_from :all
 
   mount V1::Authorization
-  mount V1::Leads
+  mount V1::Clients
 
   # 404 error for all unmatched routes except '/'
   route :any, '*path' do

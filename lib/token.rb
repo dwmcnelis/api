@@ -1,6 +1,6 @@
 class Token
 
-  TOKEN_GRACE = 30*1000 # Thirty seconds in milliseconds
+  TOKEN_GRACE = 5*60*1000 # Five minutes in milliseconds
 
   attr_reader :secret
   attr_reader :encoded
