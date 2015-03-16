@@ -54,7 +54,10 @@ EOS
           requires :last_name, type: String, desc: 'Last name.'
           optional :email, type: String, desc: 'Email address.'
           optional :phone, type: String, desc: 'Phone number.'
-          optional :Status, type: String, desc: 'Status.'
+          optional :level, type: Fixnum, desc: 'Level.'
+          optional :rank, type: Fixnum, desc: 'Rank.'
+          optional :status, type: String, desc: 'Status.'
+          optional :buzzes, type: Fixnum, desc: 'Buzzes.'
           optional :Notes, type: String, desc: 'Notes.'
         end
       end
@@ -68,7 +71,10 @@ EOS
                                  last_name: permitted_params[:client][:last_name],
                                  email: permitted_params[:client][:email],
                                  phone: permitted_params[:client][:phone],
+                                 level: permitted_params[:client][:level],
+                                 rank: permitted_params[:client][:rank],
                                  status: permitted_params[:client][:status],
+                                 buzzes: permitted_params[:client][:buzzes],
                                  notes: permitted_params[:client][:notes]
                                })
           @client
@@ -88,7 +94,10 @@ EOS
           optional :last_name, type: String, desc: 'Last name.'
           optional :email, type: String, desc: 'Email address.'
           optional :phone, type: String, desc: 'Phone number.'
+          optional :level, type: Fixnum, desc: 'Level.'
+          optional :rank, type: Fixnum, desc: 'Rank.'
           optional :status, type: String, desc: 'Status.'
+          optional :buzzes, type: Fixnum, desc: 'Buzzes.'
           optional :notes, type: String, desc: 'Notes.'
         end
       end

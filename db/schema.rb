@@ -11,11 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205164453) do
+ActiveRecord::Schema.define(version: 20150316145654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "user_id"
+    t.string   "first_name", limit: 40
+    t.string   "last_name",  limit: 40
+    t.string   "email",      limit: 254
+    t.string   "phone",      limit: 40
+    t.string   "status",     limit: 12
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "level"
+    t.integer  "rank"
+    t.integer  "buzzes"
+  end
 
   create_table "credentials", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id"
@@ -30,18 +45,6 @@ ActiveRecord::Schema.define(version: 20150205164453) do
     t.string   "multi_factor_phone_backup_number", limit: 25
     t.integer  "multi_factor_authenticator",       limit: 2,   default: 0, null: false
     t.text     "multi_factor_backup_codes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "user_id"
-    t.string   "first_name", limit: 40
-    t.string   "last_name",  limit: 40
-    t.string   "email",      limit: 254
-    t.string   "phone",      limit: 40
-    t.string   "status",     limit: 12
-    t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
