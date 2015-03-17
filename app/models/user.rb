@@ -2,6 +2,9 @@ require 'token'
 
 class User < ActiveRecord::Base
 
+  enum gender: { male: 0, female: 1, unknown: 2}
+
+
   has_one :credential
   has_many :clients
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316145654) do
+ActiveRecord::Schema.define(version: 20150317185616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,13 +23,13 @@ ActiveRecord::Schema.define(version: 20150316145654) do
     t.string   "last_name",  limit: 40
     t.string   "email",      limit: 254
     t.string   "phone",      limit: 40
-    t.string   "status",     limit: 12
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "level"
     t.integer  "rank"
     t.integer  "buzzes"
+    t.integer  "status",                 default: 0
+    t.integer  "level",                  default: 1
   end
 
   create_table "credentials", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
