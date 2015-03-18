@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317185616) do
+ActiveRecord::Schema.define(version: 20150317211808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,22 @@ ActiveRecord::Schema.define(version: 20150317185616) do
     t.string   "multi_factor_phone_backup_number", limit: 25
     t.integer  "multi_factor_authenticator",       limit: 2,   default: 0, null: false
     t.text     "multi_factor_backup_codes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teams", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name",        limit: 254
+    t.string   "slug",        limit: 254
+    t.integer  "level",       limit: 2,   default: 0, null: false
+    t.integer  "kind",        limit: 2,   default: 0, null: false
+    t.uuid     "league_id"
+    t.uuid     "division_id"
+    t.date     "founded"
+    t.string   "location",    limit: 254
+    t.string   "arena",       limit: 254
+    t.uuid     "user_id"
+    t.integer  "verified",    limit: 2,   default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
