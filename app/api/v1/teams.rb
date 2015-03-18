@@ -36,7 +36,7 @@ EOS
       get ':id' do
         benchmark do
           authenticate!
-          @team = exists! team.find_by_id(permitted_params[:id])
+          @team = exists! Team.find_by_id(permitted_params[:id])
           authorize! @team, :show?
           @team
         end
@@ -52,24 +52,24 @@ EOS
         requires :team, :type => Hash do
           requires :name, type: String, desc: 'Name.'
           # optional :level, type: String, desc: 'Last name.'
-          # optional :type, type: String, desc: 'xxx.'
+          # optional :kind, type: String, desc: 'xxx.'
           # optional :league_id, type: Fixnum, desc: 'xxx.'
           # optional :division_id, type: String, desc: 'xxx.'
           # optional :founded, type: Date, desc: 'xxx.'
-          # optional :location, type: String, desc: 'xxx.'
-          # optional :arena, type: String, desc: 'xxx.'
+          optional :location, type: String, desc: 'Location.'
+          optional :arena, type: String, desc: 'Arena.'
           # optional :user_id, type: String, desc: 'xxx.'
         end
       end
       post do
         benchmark do
           authenticate!
-          authorize! team, :create?
-          @team = team.create!({
+          authorize! Team, :create?
+          @team = Team.create!({
                                  user_id: current_user.id,
                                  name: permitted_params[:team][:name],
                                  level: permitted_params[:team][:level],
-                                 type: permitted_params[:team][:type],
+                                 kind: permitted_params[:team][:kind],
                                  league_id: permitted_params[:team][:league_id],
                                  division_id: permitted_params[:team][:division_id],
                                  founded: permitted_params[:team][:founded],
@@ -91,22 +91,22 @@ EOS
         requires :team, :type => Hash do
           requires :name, type: String, desc: 'Name.'
           # optional :level, type: String, desc: 'Last name.'
-          # optional :type, type: String, desc: 'xxx.'
+          # optional :kind, type: String, desc: 'xxx.'
           # optional :league_id, type: Fixnum, desc: 'xxx.'
           # optional :division_id, type: String, desc: 'xxx.'
           # optional :founded, type: Date, desc: 'xxx.'
-          # optional :location, type: String, desc: 'xxx.'
-          # optional :arena, type: String, desc: 'xxx.'
+          optional :location, type: String, desc: 'Location.'
+          optional :arena, type: String, desc: 'Arena.'
           # optional :user_id, type: String, desc: 'xxx.'
         end
       end
       put ':id' do
         benchmark do
           authenticate!
-          @team = exists! team.find_by_id(permitted_params[:id])
+          @team = exists! Team.find_by_id(permitted_params[:id])
           authorize! @team, :update?
           @team.update(permitted_params[:team])
-          @team = team.find_by_id(permitted_params[:id])
+          @team = Team.find_by_id(permitted_params[:id])
           @team
         end
       end
@@ -123,7 +123,7 @@ EOS
       delete ':id' do
         benchmark do
           authenticate!
-          @team = exists! team.find_by_id(permitted_params[:id])
+          @team = exists! Team.find_by_id(permitted_params[:id])
           authorize! @team, :destroy?
           @team.destroy
         end
