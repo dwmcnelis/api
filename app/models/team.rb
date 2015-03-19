@@ -33,7 +33,35 @@ class Team < ActiveRecord::Base
 
 			slug
   	end
-  end
+
+  	def search(query)
+		  query = "%#{query}%"
+		  name_match = arel_table[:name].matches(query)
+		  aliases_match = arel_table[:aliases].matches(query)
+		  where(name_match.or(aliases_match))
+		end
+
+		def select2(teams)
+			{"select_#{Team.to_s.downcase.pluralize}":
+				teams.to_a.group_by do |team|
+				 #{}"#{team.league.upcase} #{team.kind.upcase}"
+				 "NFL #{team.kind.upcase}"
+				end.inject([]) do |result, pair|
+					group = pair[0]
+					teams = pair[1]
+					puts "group: #{group} teams.count: #{teams.count}"
+					result << {
+						id: 0,
+						text: group,
+						children: teams.map do |team|
+							{id: team.id, text: team.name, description: team.kind}
+						end
+					}
+					result
+				end
+			}
+		end
+  end # class << self
 
   def owner?(user)
     self.user_id == user.id
@@ -42,4 +70,4 @@ class Team < ActiveRecord::Base
   def slugify
   	self.slug = self.class.slugify(self.name)
   end
-end
+end # Team
