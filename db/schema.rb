@@ -19,19 +19,19 @@ ActiveRecord::Schema.define(version: 20150319202223) do
 
   create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id"
-    t.string   "first_name",    limit: 40
-    t.string   "last_name",     limit: 40
-    t.string   "email",         limit: 254
-    t.string   "phone",         limit: 40
+    t.string   "first_name", limit: 40
+    t.string   "last_name",  limit: 40
+    t.string   "email",      limit: 254
+    t.string   "phone",      limit: 40
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "rank"
     t.integer  "buzzes"
-    t.integer  "status",                    default: 0
-    t.integer  "level",                     default: 1
-    t.string   "df_image_uid"
-    t.string   "df_image_name"
+    t.integer  "status",                 default: 0
+    t.integer  "level",                  default: 1
+    t.string   "image_uid"
+    t.string   "image_name"
   end
 
   create_table "conferences", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|

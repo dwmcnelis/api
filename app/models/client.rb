@@ -3,7 +3,7 @@ class Client < ActiveRecord::Base
 	enum level: { a_list: 0, b_list: 1, c_list: 2}
 	enum status: { initial: 0, verified: 1, qualified: 2, disqualified: 3, inactive: 4, active: 5}
 
-  dragonfly_accessor :df_image
+  dragonfly_accessor :image
 
   has_one :user
 
@@ -25,9 +25,9 @@ class Client < ActiveRecord::Base
   # image as dragonfly attachment with static fallback
   # so you can chain :process, :thumb, :url, etc.
   # @return [Dragonfly::Attachment]
-  def image
-    if self.df_image && self.df_image.image
-      self.df_image
+  def image_attachment
+    if self.image && self.image.image
+      self.image
     else
       Dragonfly.app(:static).fetch_file(File.join(Rails.root, 'app/assets/images/client-no-image.png'))
     end

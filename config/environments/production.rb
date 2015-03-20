@@ -76,4 +76,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Serving content url prefix
+  config.buzz.content_server = "#{config.force_ssl ? 'https' : 'http'}://localhost:3002"
 end

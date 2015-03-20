@@ -58,16 +58,16 @@ module Concerns
         end
 
         def authorize!(record, action)
-          error!({ error:  'Forbidden',
-                   detail: "Not authorized for resource",
-                   status: '403'},
+          error!({error:  'Forbidden',
+                  detail: "Not authorized for resource",
+                  status: '403'},
                  403) unless authorize record, action
         end
 
         def exists!(object)
-          error!({ error:  'Not Found',
-                   detail: "Resource can not be found",
-                   status: '404'},
+          error!({error:  'Not Found',
+                  detail: "Resource can not be found",
+                  status: '404'},
                  403)  unless object
           object
         end

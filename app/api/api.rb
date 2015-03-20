@@ -16,6 +16,7 @@ class API < Grape::API
   #rescue_from :all
 
   mount V1::Authorization
+  mount V1::Attachments
   mount V1::Clients
   mount V1::Teams
 
