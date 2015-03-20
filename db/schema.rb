@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318124902) do
+ActiveRecord::Schema.define(version: 20150319202223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,17 +19,28 @@ ActiveRecord::Schema.define(version: 20150318124902) do
 
   create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id"
-    t.string   "first_name", limit: 40
-    t.string   "last_name",  limit: 40
-    t.string   "email",      limit: 254
-    t.string   "phone",      limit: 40
+    t.string   "first_name",    limit: 40
+    t.string   "last_name",     limit: 40
+    t.string   "email",         limit: 254
+    t.string   "phone",         limit: 40
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "rank"
     t.integer  "buzzes"
-    t.integer  "status",                 default: 0
-    t.integer  "level",                  default: 1
+    t.integer  "status",                    default: 0
+    t.integer  "level",                     default: 1
+    t.string   "df_image_uid"
+    t.string   "df_image_name"
+  end
+
+  create_table "conferences", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "short_name", limit: 254
+    t.string   "full_name",  limit: 254
+    t.uuid     "user_id"
+    t.integer  "verified",   limit: 2,   default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "credentials", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -49,21 +60,40 @@ ActiveRecord::Schema.define(version: 20150318124902) do
     t.datetime "updated_at"
   end
 
+  create_table "divisions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "short_name", limit: 254
+    t.string   "full_name",  limit: 254
+    t.uuid     "user_id"
+    t.integer  "verified",   limit: 2,   default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "leagues", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "short_name", limit: 254
+    t.string   "full_name",  limit: 254
+    t.uuid     "user_id"
+    t.integer  "verified",   limit: 2,   default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "teams", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "name",        limit: 254
-    t.string   "slug",        limit: 254
-    t.integer  "level",       limit: 2,   default: 0, null: false
-    t.integer  "kind",        limit: 2,   default: 0, null: false
+    t.string   "name",          limit: 254
+    t.string   "slug",          limit: 254
+    t.integer  "level",         limit: 2,   default: 0, null: false
+    t.integer  "kind",          limit: 2,   default: 0, null: false
     t.uuid     "league_id"
     t.uuid     "division_id"
     t.date     "founded"
-    t.string   "location",    limit: 254
-    t.string   "arena",       limit: 254
+    t.string   "location",      limit: 254
+    t.string   "arena",         limit: 254
     t.uuid     "user_id"
-    t.integer  "verified",    limit: 2,   default: 0, null: false
+    t.integer  "verified",      limit: 2,   default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "aliases"
+    t.uuid     "conference_id"
   end
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|

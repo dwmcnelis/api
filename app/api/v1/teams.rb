@@ -8,9 +8,9 @@ module V1
     namespace :select_teams do
 
      # GET /api/v1/select_teams
-      desc 'Return select list of teams' do
+      desc 'Return list of teams for select' do
         detail <<EOS
-This entry point is used to list teams.
+This entry point is used to list teams for select.
 EOS
       end
       params do
@@ -20,7 +20,6 @@ EOS
         benchmark do
           authenticate!
           authorize! Team, :index?
-          #content_type 'application/json'
 
           if params[:query]
             Team.select2(Team.search(params[:query]))
@@ -30,7 +29,6 @@ EOS
         end
       end
     end
-
 
     resource :teams do
 

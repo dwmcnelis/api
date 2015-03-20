@@ -15,6 +15,7 @@ gem 'colorize', '~> 0.7.5'	# Text color using ANSI escape sequences
 gem 'bcrypt'#, '~> 3.1.10'	# OpenBSD password hashing algorithm
 gem 'rotp'#, '~> 2.1.0'	# One time passwords
 gem 'jwt', '~> 1.2.1'		# JSON Web Tokens
+gem 'dragonfly', '~> 1.0.7' # On-the-fly processing of images and other attachments
 
 group :development do
   gem 'spring-commands-rspec' # Add 'rspec' command for Spring
