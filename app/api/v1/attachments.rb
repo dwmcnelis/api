@@ -37,7 +37,6 @@ EOS
           for_id = params[:attachment][:for_id]
           for_attribute = params[:attachment][:for_attribute]
           kind = for_type.capitalize.constantize
-          #debugger
 
           error!({error:  'Forbidden',
                   detail: "Not authorized for resource",
@@ -49,10 +48,17 @@ EOS
           authorize! @object, :update?
 
           @object.send("#{for_attribute}=",params[:attachment][:content][:tempfile])
-          @object.send(for_attribute).name = params[:attachment][:contentName]
-          #@object.send(for_attribute).mime_type = params[:attachment][:contentType]
+          @object.send(for_attribute).name = params[:attachment][:content_name]
           @object.save
-          {message: "Attachment for #{for_type}.#{for_id}.#{for_attribute} [#{@object.send(for_attribute).size}] has been saved"}
+          {attachment: {
+              contentName: @object.image.name,
+              contentSize: @object.image.size,
+              contentType: @object.image.mime_type,
+              for_type: for_type,
+              for_id: for_id,
+              for_attribute: for_attribute
+            }
+          }
         end
       end
     end # namespace

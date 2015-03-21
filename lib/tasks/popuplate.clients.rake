@@ -42,7 +42,7 @@ namespace :db do
       #   password: 'weston'
       # )
 
-      user = User.find_by_email('davemcnelis@gmail.com')
+      user = User.find_by_username('davemcnelis@gmail.com')
 
       # david = Client.find_by_id('ce173771-903e-4110-bfd0-f14123e412ca')
       david =  user.clients.search('mcnelis').search('david').first
