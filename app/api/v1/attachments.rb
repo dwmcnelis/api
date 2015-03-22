@@ -9,8 +9,8 @@ module V1
 
       # POST /api/v1/attachments
       desc 'Upload an attachment file' do
-        detail <<EOS
-This entry point is used to upload an attachment file.
+      detail <<EOS
+This entry point is used to upload an attachment file and associate its contents with specified object.
 EOS
       end
       params do
@@ -22,12 +22,12 @@ EOS
             #requires :filename, desc: 'For attribute.'
             #requires :type, desc: 'For attribute.'
             #requires :name, desc: 'For attribute.'
-            requires :tempfile, desc: 'Content data temporary file.'
+            requires :tempfile, desc: 'Content temporary file.'
             #requires :head, desc: 'For attribute.'
           end
-          optional :contentName, type: String, desc: 'Content file name.'
-          optional :contentType, type: String, desc: 'Content mime type.'
-          optional :contentSize, type: Fixnum, desc: 'Content size.'
+          optional :name, type: String, desc: 'Content file name.'
+          #optional :mime_type, type: String, desc: 'Content mime type.'
+          #optional :size, type: Fixnum, desc: 'Content size.'
         end
       end
       post do
@@ -48,12 +48,17 @@ EOS
           authorize! @object, :update?
 
           @object.send("#{for_attribute}=",params[:attachment][:content][:tempfile])
-          @object.send(for_attribute).name = params[:attachment][:content_name]
+          @object.send(for_attribute).name = params[:attachment][:name] if params[:attachment][:name]
           @object.save
+          @object = kind.find_by_id(for_id)
           {attachment: {
-              contentName: @object.image.name,
-              contentSize: @object.image.size,
-              contentType: @object.image.mime_type,
+              content: nil,
+
+              name: @object.image.name,
+              mime_type: @object.image.mime_type,
+              size: @object.image.size,
+              url: Rails.configuration.buzz.content_server+@object.image.url,
+
               for_type: for_type,
               for_id: for_id,
               for_attribute: for_attribute
