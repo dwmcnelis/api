@@ -24,6 +24,8 @@ EOS
             #requires :name, desc: 'For attribute.'
             requires :tempfile, desc: 'Content temporary file.'
             #requires :head, desc: 'For attribute.'
+
+            #["name", "lastModifiedDate", "size", "type"]
           end
           optional :name, type: String, desc: 'Content file name.'
           #optional :mime_type, type: String, desc: 'Content mime type.'
@@ -33,6 +35,16 @@ EOS
       post do
         benchmark do
           authenticate!
+
+          # debugger
+          # unless params[:attachment][:content][:tempfile]
+          #   puts "error: no tempfile!".colorize(:red)
+          #   error!({error: 'Bad request',
+          #         detail: 'Invalid parameters',
+          #         status: '400'},
+          #        403)
+          # end
+
           for_type = params[:attachment][:for_type]
           for_id = params[:attachment][:for_id]
           for_attribute = params[:attachment][:for_attribute]
