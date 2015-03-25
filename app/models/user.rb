@@ -9,6 +9,13 @@ class User < ActiveRecord::Base
   has_many :clients
 
   class << self
+    def search(query)
+      query = "%#{query}%"
+      username = arel_table[:username].matches(query)
+      first_name = arel_table[:first_name].matches(query)
+      last_name = arel_table[:last_name].matches(query)
+      where(username.or(first_name).or(last_name))
+    end
 
     def find_by_username_password(username, password)
       User.find_by_username(username).try(:credential).try(:authenticate_by_password, password).try(:user)

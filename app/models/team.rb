@@ -10,6 +10,10 @@ class Team < ActiveRecord::Base
 
   before_save :slugify
 
+  scope :user_is, ->(user) { where(user: user) }
+  scope :no_user, -> { where(user_id: nil) }
+
+
   class << self
   	def slugify(name)
 	  	# strip the string
@@ -39,9 +43,9 @@ class Team < ActiveRecord::Base
 
   	def search(query)
 		  query = "%#{query}%"
-		  name_match = arel_table[:name].matches(query)
-		  aliases_match = arel_table[:aliases].matches(query)
-		  where(name_match.or(aliases_match))
+		  name = arel_table[:name].matches(query)
+		  aliases = arel_table[:aliases].matches(query)
+		  where(name.or(aliases))
 		end
 
 		def select2(teams)

@@ -5,15 +5,18 @@ class Client < ActiveRecord::Base
 
   dragonfly_accessor :image
 
-  has_one :user
+  belongs_to :user
+
+  scope :user_is, ->(user) { where(user: user) }
+  scope :no_user, -> { where(user_id: nil) }
 
   class << self
 
     def search(query)
 		  query = "%#{query}%"
-		  first_name_match = arel_table[:first_name].matches(query)
-		  last_name_match = arel_table[:last_name].matches(query)
-		  where(first_name_match.or(last_name_match))
+		  first_names = arel_table[:first_name].matches(query)
+		  last_name = arel_table[:last_name].matches(query)
+		  where(first_name.or(last_name))
 		end
 
 	end # class << self

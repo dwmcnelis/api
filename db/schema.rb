@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319202223) do
+ActiveRecord::Schema.define(version: 20150325155121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,19 +19,19 @@ ActiveRecord::Schema.define(version: 20150319202223) do
 
   create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id"
-    t.string   "first_name",    limit: 40
-    t.string   "last_name",     limit: 40
-    t.string   "email",         limit: 254
-    t.string   "phone",         limit: 40
+    t.string   "first_name", limit: 40
+    t.string   "last_name",  limit: 40
+    t.string   "email",      limit: 254
+    t.string   "phone",      limit: 40
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "rank"
     t.integer  "buzzes"
-    t.integer  "status",                    default: 0
-    t.integer  "level",                     default: 1
-    t.string   "df_image_uid"
-    t.string   "df_image_name"
+    t.integer  "status",                 default: 0
+    t.integer  "level",                  default: 1
+    t.string   "image_uid"
+    t.string   "image_name"
   end
 
   create_table "conferences", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -77,6 +77,37 @@ ActiveRecord::Schema.define(version: 20150319202223) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "taggings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "as",          limit: 128
+    t.uuid     "tag_id"
+    t.uuid     "tagged_id"
+    t.string   "tagged_type", limit: 128
+    t.uuid     "tagger_id"
+    t.string   "tagger_type", limit: 128
+    t.integer  "importance",  limit: 2,   default: 0, null: false
+    t.uuid     "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "taggings", ["as", "tag_id", "tagged_id", "tagged_type", "tagger_id", "tagger_type"], name: "taggings_unique_index", unique: true, using: :btree
+  add_index "taggings", ["as", "tagged_id", "tagged_type"], name: "taggings_index", using: :btree
+
+  create_table "tags", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "as",             limit: 128
+    t.string   "name",           limit: 128
+    t.string   "description",    limit: 128
+    t.integer  "taggings_count",             default: 0
+    t.string   "image_uid",      limit: 254
+    t.string   "image_name",     limit: 254
+    t.uuid     "user_id"
+    t.integer  "verified",       limit: 2,   default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["as", "name", "description"], name: "tags_index", unique: true, using: :btree
 
   create_table "teams", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",          limit: 254

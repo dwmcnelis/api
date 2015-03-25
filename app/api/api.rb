@@ -18,6 +18,7 @@ class API < Grape::API
   mount V1::Authorization
   mount V1::Attachments
   mount V1::Clients
+  mount V1::Tags
   mount V1::Teams
 
   # 404 error for all unmatched routes except '/'
