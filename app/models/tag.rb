@@ -25,7 +25,7 @@ class Tag < ActiveRecord::Base
   scope :user_is, ->(user) { where(user: user) }
   scope :no_user, -> { where(user_id: nil) }
 
-  class << seTagglf
+  class << self
 
     def search(query)
       query = "%#{query}%"
@@ -48,6 +48,12 @@ class Tag < ActiveRecord::Base
 
     def named_like_any(list)
       where(arel_table[:name].matches_any(list.map {|e| "%#{e.gsub(/[%_]/, '\\\\\0')}%"},true))
+    end
+
+    def find_or_create(as, name, description, options={})
+      user_id ||= options[:user_id]
+      user_id ||= options[:user] ? options[:user].id : nil
+      Tag.where(as: as, name: name, description: description).first || create(as: as, name: name, description: description, user_id: user_id)
     end
 
     def find_or_create_with_like_by_name(name)
@@ -73,28 +79,26 @@ class Tag < ActiveRecord::Base
           raise DuplicateTagError.new("'#{tag_name}' has already been taken")
         end
       end
+    end
 
-      def select2(tags)
-        {"select_#{Tag.to_s.downcase.pluralize}":
-          tags.to_a.group_by do |tag|
-           # "#{tag.grouping.upcase} #{tag.kind.upcase}"
-           "#{team.grouping.upcase}"
-          end.inject([]) do |result, pair|
-            group = pair[0]
-            tags = pair[1]
-            puts "group: #{group} tags.count: #{tags.count}"
-            result << {
-              id: group,
-              text: group,
-              children: teams.map do |team|
-                {id: team.id, text: team.name, description: team.kind}
-              end
-            }
-            result
-          end
-        }
-      end
-
+    def select2(tags)
+      {"select_#{Tag.to_s.downcase.pluralize}":
+        tags.to_a.group_by do |tag|
+         "#{tag.description.upcase}"
+        end.inject([]) do |result, pair|
+          group = pair[0]
+          tags = pair[1]
+          puts "group: #{group} tags.count: #{tags.count}"
+          result << {
+            id: group,
+            text: group,
+            children: tags.map do |tag|
+              {id: tag.id, text: tag.name, description: tag.description}
+            end
+          }
+          result
+        end
+      }
     end
 
     private
@@ -135,6 +139,14 @@ class Tag < ActiveRecord::Base
 
   def count
     read_attribute(:count).to_i
+  end
+
+  def owner?(user)
+    self.user_id == user.id
+  end
+
+  def unowned?
+    self.user_id.nil?
   end
 
 

@@ -74,6 +74,10 @@ class Team < ActiveRecord::Base
     self.user_id == user.id
   end
 
+  def unowned?
+    self.user_id.nil?
+  end
+
   def slugify
   	self.slug = self.class.slugify(self.name)
   end

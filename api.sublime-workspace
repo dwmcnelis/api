@@ -1,1 +1,512 @@
-{}
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ban",
+				"bannerHeight"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"styl",
+				"style	Attr"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"st",
+				"style	Attr"
+			],
+			[
+				"St",
+				"style	Attr"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/api/v1/attachments.rb",
+			"settings":
+			{
+				"buffer_size": 2810,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/dmcnelis/Development/api",
+		"/Users/dmcnelis/Development/api/app",
+		"/Users/dmcnelis/Development/api/app/api",
+		"/Users/dmcnelis/Development/api/app/api/v1",
+		"/Users/dmcnelis/Development/api/app/models",
+		"/Users/dmcnelis/Development/api/app/serializers",
+		"/Users/dmcnelis/Development/api/lib",
+		"/Users/dmcnelis/Development/api/lib/tasks"
+	],
+	"file_history":
+	[
+		"/Users/dmcnelis/Development/api/lib/tasks/popuplate.clients.rake",
+		"/Users/dmcnelis/Development/api/app/models/client.rb",
+		"/Users/dmcnelis/Development/api/app/api/v1/teams.rb",
+		"/Users/dmcnelis/Development/api/app/serializers/client_serializer.rb",
+		"/Users/dmcnelis/Development/api/public/crossdomain.xml",
+		"/Users/dmcnelis/Development/api/app/api/v1/authorization.rb",
+		"/Users/dmcnelis/Development/api/lib/tasks/populate.teams.rake",
+		"/Users/dmcnelis/Development/api/db/migrate/20150318023927_change_type_type.rb",
+		"/Users/dmcnelis/Development/api/app/models/team.rb",
+		"/Users/dmcnelis/Development/api/app/serializers/team_serializer.rb",
+		"/Users/dmcnelis/Development/frontend/package.json",
+		"/Users/dmcnelis/Development/frontend/vendor/susy/susy/output/support/_background.scss",
+		"/Users/david/Development/frontend/app/templates/application.hbs",
+		"/Users/david/Development/frontend/app/styles/app.scss",
+		"/Users/david/Development/frontend/app/app.js",
+		"/Users/david/Development/frontend/app/templates/dev.hbs",
+		"/Users/david/Development/frontend/app/templates/gmail.hbs",
+		"/Users/david/Development/frontend/app/styles/gmail-favicons.scss",
+		"/Users/david/Development/frontend/app/styles/gmail-document.scss",
+		"/Users/david/Development/frontend/app/styles/gmail-banner.scss",
+		"/Users/david/Development/frontend/app/styles/gmail-new.scss",
+		"/Users/david/Development/frontend/app/styles/gmail-submit.scss",
+		"/Users/david/Development/frontend/app/styles/gmail-page.scss",
+		"/Users/david/Development/frontend/app/styles/gmail-extra2.scss",
+		"/Users/david/Development/frontend/app/styles/gmail-extra3.scss",
+		"/Users/david/Development/frontend/app/index.html",
+		"/Users/david/Development/frontend/app/styles/gmail-app.scss",
+		"/Users/david/Development/frontend/app/templates/noscript.hbs",
+		"/Users/david/Development/frontend/app/styles/buzz-page.scss",
+		"/Users/david/Development/frontend/app/styles/gmail.scss",
+		"/Users/david/Development/frontend/app/styles/gmail2.scss",
+		"/Users/david/Development/frontend/app/templates/fragments.hbs",
+		"/Users/david/Development/frontend/app/styles/buzz-document.scss",
+		"/Users/david/Development/frontend/app/styles/buzz-banner.scss",
+		"/Users/david/Development/frontend/vendor/bootstrap/styles/bootstrap/_variables.scss",
+		"/Users/david/Development/frontend/vendor/bootstrap/styles/bootstrap/_navbar.scss",
+		"/Users/david/Development/frontend/app/templates/leads.hbs",
+		"/Users/david/Development/frontend/app/styles/gmail-icons.scss",
+		"/Users/david/Development/frontend/app/styles/gmail-extra.scss",
+		"/Users/david/Development/frontend/public/images",
+		"/Users/david/Development/frontend/app/gmail.html",
+		"/Users/david/Development/frontend/app/templates/application~.hbs",
+		"/Users/david/Development/frontend/app/styles/gmail-app.css",
+		"/Users/david/Development/frontend/app/styles/gmail-extra2.css",
+		"/Users/david/Development/frontend/app/styles/gmail-extra.css",
+		"/Users/david/Development/frontend/app/styles/gmail-submit.css",
+		"/Users/david/Development/frontend/app/styles/gmail-favicons.css",
+		"/Users/david/Development/frontend/app/styles/gmail-icons.css",
+		"/Users/david/Development/frontend/app/styles/gmail.css",
+		"/Users/david/Development/frontend/vendor/bootstrap/styles/bootstrap/_navs.scss",
+		"/Users/david/Development/frontend/vendor/bootstrap/styles/bootstrap/_utilities.scss",
+		"/Users/david/Development/frontend/app/components/zz-navbar.js",
+		"/Users/david/Development/frontend/app/templates/zz-navbar.hbs",
+		"/Users/david/Development/frontend/app/styles/zz-navbar.scss",
+		"/Users/david/Development/frontend/app/styles/components",
+		"/Users/david/Development/frontend/app/templates/xxx.html",
+		"/Users/david/Development/frontend/xxx",
+		"/Users/david/Development/frontend/app/templates/components/zz-navbar.hbs",
+		"/Users/david/Development/frontend/frontent.sublime-project",
+		"/Users/david/Development/frontend/vendor/skeleton/styles/skeleton.scss",
+		"/Users/david/Development/frontend/app/templates/lead.hbs",
+		"/Users/david/Development/frontend/Brocfile.js",
+		"/Users/david/Development/frontend/app/styles/app.scss~",
+		"/Users/david/Development/frontend/app/styles/~app.scss~",
+		"/Users/david/Development/frontend/app/styles/~whitespace-reset.scss~",
+		"/Users/david/Development/frontend/vendor/skeleton/sytles/skeleton.scss",
+		"/Users/david/Development/frontend/vendor/skeleton/sytles/normalize.css~",
+		"/Users/david/Development/frontend/vendor/skeleton/sytles/skeleton.css~",
+		"/Users/david/Development/frontend/vendor/bootstrap/fonts/bootstrap/glyphicons-halflings-regular.eot",
+		"/Users/david/Development/frontend/vendor/skeleton/css/normalize.scss",
+		"/Users/david/Development/frontend/app/views/sessions/login.js",
+		"/Users/david/Development/frontend/app/views/mixins/focus_first.js",
+		"/Users/david/Development/frontend/app/views/lead/edit.js",
+		"/Users/david/Development/frontend/vendor/skeleton/css/skeleton.scss",
+		"/Users/david/Development/frontend/app/views/leads/new.js",
+		"/Users/david/Development/frontend/app/views/leads.js",
+		"/Users/david/Development/frontend/app/styles/skeleton.scss",
+		"/Users/david/Development/frontend/app/styles/normailze.scss",
+		"/Users/david/Development/frontend/app/controllers/leads.js",
+		"/Users/david/Development/frontend/app/templates/lead/edit.hbs",
+		"/Users/david/Development/frontend/index.js",
+		"/Users/david/Development/frontend/app/routes/leads/new.js",
+		"/Users/david/Development/frontend/vendor/skeleton/css/normailze.scss",
+		"/Users/david/Development/frontend/vendor/skeleton/css/normalize.css",
+		"/Users/david/Development/frontend/vendor/skeleton/css/skeleton.css",
+		"/Users/david/Development/frontend/app/controllers/leads/new.js",
+		"/Users/david/Development/frontend/app/controllers/lead/edit.js",
+		"/Users/david/Development/frontend/app/templates/leads/Find Results",
+		"/Users/david/Development/frontend/app/templates/sessions/login.hbs",
+		"/Users/david/Development/frontend/app/templates/leads/new.hbs",
+		"/Users/david/Development/frontend/app/controllers/lead.js",
+		"/Users/david/Development/frontend/app/routes/sessions/login.js",
+		"/Users/david/Development/frontend/app/models/lead.js",
+		"/Users/david/Development/frontend/app/controllers/sessions/login.js",
+		"/Users/david/Development/frontend/app/models/identification.js",
+		"/Users/david/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/david/Development/zz-button/Brocfile.js",
+		"/Users/david/Development/zz-button/package.json",
+		"/Users/david/Development/zz-button/app/templates/components/zz-button.hbs",
+		"/Users/david/Development/zz-button/app/components/zz-button.js",
+		"/Users/david/Development/zz-button/addon/components/zz-button.js",
+		"/Users/david/Development/zz-button/README.md",
+		"/Users/david/Development/zz-button/addon/zz-button.js",
+		"/Users/david/Development/zz-button/zz-button.sublime-project"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/david/Development/frontend/app/styles",
+			"/Users/david/Development/frontend/app/templates/application.hbs",
+			"/Users/david/Development/frontend/app/styles",
+			"/Users/david/Development/frontend/vendor/bootstrap/styles/bootstrap",
+			"",
+			"/Users/david/Development/frontend/vendor/bootstrap/styles/bootstrap",
+			"",
+			"/Users/david/Development/zz-button/app/templates",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"team",
+			"Client",
+			"type",
+			"kind",
+			"/style",
+			".gb_lb{display:inline-block;padding:0 0 0 15px;vertical-align:middle}.gb_lb:first-child",
+			"gb_lb",
+			"/style",
+			"style",
+			"goog-inline-block",
+			"style",
+			"More",
+			"iframe",
+			"script",
+			"iframe",
+			"script",
+			"iframe",
+			"outlet",
+			"/script",
+			"style=",
+			"style=\"",
+			"vI8oZc cS",
+			"vY nq",
+			"outlet",
+			"43",
+			"style=\"height:",
+			"style=\"height",
+			"style=\"width",
+			"	style=\"width",
+			"	style=\"",
+			"Service cancellation",
+			"ul",
+			"style=\"width: ",
+			"outlet",
+			"1592px",
+			"AO",
+			"aeH",
+			"nH nn",
+			"aeN",
+			"oy8Mbf",
+			"class=\"nH",
+			"#gba",
+			"gba",
+			"finder",
+			"role=\"banner\"",
+			"nH w-asV aiw",
+			"aAU",
+			"aAX",
+			"aAU",
+			"aAX",
+			"aAV",
+			"find",
+			"finder",
+			"body.",
+			"html.",
+			"aAW",
+			"aAX",
+			"html",
+			"aAX",
+			"gb_Ec",
+			"gb_i",
+			"gb_Oa",
+			"finder",
+			"logo",
+			"_logo",
+			"{{!",
+			"<!--",
+			"outlet",
+			"Hidden fields",
+			"\"no\"",
+			"banner",
+			"oy8Mbf",
+			"role=\"main",
+			"role=",
+			"banner-logo",
+			"cleardot",
+			"\"/images/cleardot",
+			"\"images/cleardot",
+			"cleardot",
+			"gb_Ta",
+			"background-image:url",
+			"gb_Ta",
+			"Skip to content",
+			"aAX",
+			"nH oy8Mbf qp",
+			"banner",
+			"aAX",
+			"static",
+			"70",
+			"overflow",
+			"@media",
+			"body",
+			"zindex-navbar-fixed",
+			"navbar-fixed-top",
+			"gray",
+			"navbar-inverse-bg",
+			"inverse",
+			"inver",
+			"form",
+			"border-bottom",
+			"border",
+			"Links in navbars",
+			"active",
+			"nav",
+			"pull-right",
+			"nav-pills",
+			"fb",
+			"like",
+			"navbar-fixed-top",
+			"zavbar",
+			"sidebar",
+			".gb_h .gb_g",
+			"gb_Uc",
+			"gb_i",
+			"gb_Xb",
+			"gb_Uc",
+			"gb_i",
+			"gb_Uc",
+			"gb_i",
+			"gb_8",
+			"navbar-nowrap",
+			"gb_Xb",
+			"gb_Uc",
+			"gb_Hb",
+			"gb_Qc",
+			"gb_Uc",
+			"navbar",
+			"navbar-banner"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"#search-results",
+			"search-results",
+			"\"/assets/images/cleardot",
+			"navbar",
+			"zz-navbar",
+			"gb_Uc",
+			"status",
+			"statuses"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/api/v1/attachments.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2810,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 392.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "api.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 202.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

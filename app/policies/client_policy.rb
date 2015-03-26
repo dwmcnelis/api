@@ -7,23 +7,23 @@ class ClientPolicy < ApplicationPolicy
   end
 
   def index?
-    (!user.banned? && user.tos?) || user.admin?
+    user.admin? || user.valid?
   end
 
   def show?
-    (!user.banned? && user.tos? && client.owner?(user)) || user.admin?
+    user.admin? || (user.valid? && client.owner?(user))
   end
 
   def create?
-    (!user.banned? && user.tos?) || user.admin?
+    user.admin? || user.valid?
   end
 
   def update?
-    (!user.banned? && user.tos? && client.owner?(user)) || user.admin?
+    user.admin? || (user.valid? && client.owner?(user))
   end
 
   def destroy?
-    (!user.banned? && user.tos? && client.owner?(user)) || user.admin?
+    user.admin? || (user.valid? && client.owner?(user))
   end
 
   class Scope < Scope

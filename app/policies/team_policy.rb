@@ -7,23 +7,23 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def index?
-    (!user.banned? && user.tos?) || user.admin?
+    user.admin? || user.valid?
   end
 
   def show?
-    (!user.banned? && user.tos?) || user.admin?
+    user.admin? || user.valid?
   end
 
   def create?
-    (!user.banned? && user.tos?) || user.admin?
+    user.admin? || user.valid?
   end
 
   def update?
-    (!user.banned? && user.tos? && team.owner?(user)) || user.admin?
+    user.admin? || (user.valid? && team.owner?(user))
   end
 
   def destroy?
-    (!user.banned? && user.tos? && team.owner?(user)) || user.admin?
+    user.admin? || (user.valid? && team.owner?(user))
   end
 
   class Scope < Scope

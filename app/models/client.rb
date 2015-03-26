@@ -25,6 +25,10 @@ class Client < ActiveRecord::Base
     self.user_id == user.id
   end
 
+  def unowned?
+    self.user_id.nil?
+  end
+
   # image as dragonfly attachment with static fallback
   # so you can chain :process, :thumb, :url, etc.
   # @return [Dragonfly::Attachment]

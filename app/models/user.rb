@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
 
   end # class << self
 
+  def valid?
+    !self.banned? && self.tos?
+  end
+
   def generate_token(options={})
     expires ||= options[:expires]
     Token.new(payload: {'uid' => self.id.to_s}, expires: expires)

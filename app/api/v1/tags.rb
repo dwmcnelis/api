@@ -23,9 +23,17 @@ EOS
           authorize! Tag, :index?
 
           if params[:query]
-            Tag.select2(Tag.search(params[:query]))
+            if params[:as]
+              Tag.select2(Tag.tagged_as(params[:as]).search(params[:query]))
+            else
+              Tag.select2(Tag.search(params[:query]))
+            end
           else
-            Tag.select2(Tag.all)
+            if params[:as]
+              Tag.select2(Tag.tagged_as(params[:as]))
+            else
+              Tag.select2(Tag.all)
+            end
           end
         end
       end
