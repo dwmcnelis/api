@@ -8,18 +8,29 @@ namespace :db do
       ncaa_football_american_athletic = Conference.create(short_name: 'American Athletic', full_name: 'American Athletic Conference', user_id: nil, verified: 1)
 
       # American Athletic
-			Team.create(name: 'Cincinnati Bearcats', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'Connecticut Huskies', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'East Carolina Pirates', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'Houston Cougars', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'Memphis Tigers', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'SMU Mustangs', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'South Florida Bulls', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'Temple Owls', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'Tulane Green Wave', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'Tulsa Hurricane', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-			Team.create(name: 'UCF Knights', level: :college, kind: :football, league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
-		
+			team = Team.find_or_create('Cincinnati Bearcats', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Connecticut Huskies', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1, aliases: "uconn")
+			team = Team.find_or_create('East Carolina Pirates', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Houston Cougars', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Memphis Tigers', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('SMU Mustangs', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('South Florida Bulls', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Temple Owls', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Tulane Green Wave', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Tulsa Hurricane', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('UCF Knights', :college, :football)
+			team.update_attributes(league_id: ncaa.id, division_id: ncaa_football_division_i_a.id, conference_id: ncaa_football_american_athletic.id, user_id: nil, verified: 1)
+
     end
   end
 end

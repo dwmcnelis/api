@@ -46,7 +46,7 @@ namespace :db do
 
       # david = Client.find_by_id('ce173771-903e-4110-bfd0-f14123e412ca')
       david =  user.clients.search('mcnelis').search('david').first
-      david.image = File.new(File.join(Rails.root, 'populate/clients/david.jpg'))
+      david.image = File.new(File.join(Rails.root, 'populate/clients/kayaker.jpg'))
       david.save
       # jon = Client.find_by_id('d575b57a-6bbd-4347-9d07-498c8b78a3bb')
       jon =  user.clients.search('mcnelis').search('jon').first

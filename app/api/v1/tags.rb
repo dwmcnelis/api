@@ -5,40 +5,6 @@ module V1
     version 'v1', using: :path
     format :json
 
-    namespace :select_tags do
-
-     # GET /api/v1/select_tags
-      desc 'Return list of tags for select' do
-        detail <<EOS
-This entry point is used to list tags for select.
-EOS
-      end
-      params do
-        optional :as, type: String, desc: 'Tagged as type.'
-        optional :query, type: String, desc: 'Query.'
-      end
-      get do
-        benchmark do
-          authenticate!
-          authorize! Tag, :index?
-
-          if params[:query]
-            if params[:as]
-              Tag.select2(Tag.tagged_as(params[:as]).search(params[:query]))
-            else
-              Tag.select2(Tag.search(params[:query]))
-            end
-          else
-            if params[:as]
-              Tag.select2(Tag.tagged_as(params[:as]))
-            else
-              Tag.select2(Tag.all)
-            end
-          end
-        end
-      end
-    end
-
     resource :tags do
 
       pagination per_page: 20, max_per_page: 30, offset: 0
@@ -51,15 +17,24 @@ EOS
       end
       params do
         optional :query, type: String, desc: 'Query.'
+        optional :as, type: String, desc: 'Tagged as type.'
       end
       get do
         benchmark do
           authenticate!
           authorize! Tag, :index?
           if params[:query]
-            paginate Tag.search(params[:query])
+            if params[:as]
+              paginate Tag.where(user_id: [nil,current_user.id]).tagged_as(params[:as]).search(params[:query])
+            else
+              paginate Tag.where(user_id: [nil,current_user.id]).search(params[:query])
+            end
           else
-            paginate Tag.all
+            if params[:as]
+              paginate Tag.where(user_id: [nil,current_user.id]).tagged_as(params[:as])
+            else
+              paginate Tag.where(user_id: [nil,current_user.id])
+            end
           end
         end
       end
@@ -91,9 +66,11 @@ EOS
       end
       params do
         requires :tag, :type => Hash do
-          requires :name, type: String, desc: 'Name.'
+          requires :text, type: String, desc: 'Text.'
           optional :as, type: String, desc: 'Tagged as type.'
           optional :description, type: String, desc: 'Description.'
+          optional :tagged_type, type: String, desc: 'Tagged type.'
+          optional :tagged_id, type: String, desc: 'Tagged id.'
           #optional :user_id, type: String, desc: 'User id.'
         end
       end
@@ -102,12 +79,20 @@ EOS
           authenticate!
           authorize! Tag, :create?
           @tag = Tag.create!({
-                                 user_id: current_user.id,
-                                 #user_id: permitted_params[:tag][:user_id] ? permitted_params[:tag][:user_id] : current_user.id
-                                 name: permitted_params[:tag][:name],
-                                 as: permitted_params[:tag][:as],
-                                 description: permitted_params[:tag][:description]
-                               })
+            as: permitted_params[:tag][:as],
+            name: permitted_params[:tag][:text],
+            description: permitted_params[:tag][:description],
+            user_id: current_user.id,
+            #user_id: permitted_params[:tag][:user_id] ? permitted_params[:tag][:user_id] : current_user.id,
+          })
+          @tagging = Tagging.create!({
+            as: permitted_params[:tag][:as],
+            tag_id: @tag.id,
+            tagged_type: permitted_params[:tag][:tagged_type],
+            tagged_id: permitted_params[:tag][:tagged_id],
+            user_id: current_user.id,
+            #user_id: permitted_params[:tag][:user_id] ? permitted_params[:tag][:user_id] : current_user.id,
+          })
           @tag
         end
       end

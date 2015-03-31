@@ -81,23 +81,25 @@ ActiveRecord::Schema.define(version: 20150325155121) do
   create_table "taggings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "as",          limit: 128
     t.uuid     "tag_id"
-    t.uuid     "tagged_id"
     t.string   "tagged_type", limit: 128
-    t.uuid     "tagger_id"
-    t.string   "tagger_type", limit: 128
+    t.uuid     "tagged_id"
     t.integer  "importance",  limit: 2,   default: 0, null: false
     t.uuid     "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "taggings", ["as", "tag_id", "tagged_id", "tagged_type", "tagger_id", "tagger_type"], name: "taggings_unique_index", unique: true, using: :btree
-  add_index "taggings", ["as", "tagged_id", "tagged_type"], name: "taggings_index", using: :btree
+  add_index "taggings", ["as", "tag_id", "tagged_id", "tagged_type", "user_id"], name: "taggings_index", unique: true, using: :btree
+  add_index "taggings", ["as", "tagged_id", "tagged_type"], name: "taggings_tagged_index", using: :btree
 
   create_table "tags", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "as",             limit: 128
     t.string   "name",           limit: 128
     t.string   "description",    limit: 128
+    t.string   "grouping",       limit: 128
+    t.string   "aliases",        limit: 128
+    t.string   "for_type",       limit: 128
+    t.uuid     "for_id"
     t.integer  "taggings_count",             default: 0
     t.string   "image_uid",      limit: 254
     t.string   "image_name",     limit: 254
@@ -107,7 +109,7 @@ ActiveRecord::Schema.define(version: 20150325155121) do
     t.datetime "updated_at"
   end
 
-  add_index "tags", ["as", "name", "description"], name: "tags_index", unique: true, using: :btree
+  add_index "tags", ["as", "name", "description", "user_id"], name: "tags_index", unique: true, using: :btree
 
   create_table "teams", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",          limit: 254
@@ -126,6 +128,8 @@ ActiveRecord::Schema.define(version: 20150325155121) do
     t.string   "aliases"
     t.uuid     "conference_id"
   end
+
+  add_index "teams", ["name", "level", "kind"], name: "teams_index", unique: true, using: :btree
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "username",   limit: 254

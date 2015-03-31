@@ -54,7 +54,7 @@ EOS
           requires :last_name, type: String, desc: 'Last name.'
           optional :email, type: String, desc: 'Email address.'
           optional :phone, type: String, desc: 'Phone number.'
-          optional :level, type: Fixnum, desc: 'Level.'
+          optional :level, type: String, desc: 'Level.'
           optional :rank, type: Fixnum, desc: 'Rank.'
           optional :status, type: String, desc: 'Status.'
           optional :buzzes, type: Fixnum, desc: 'Buzzes.'
@@ -94,11 +94,12 @@ EOS
           optional :last_name, type: String, desc: 'Last name.'
           optional :email, type: String, desc: 'Email address.'
           optional :phone, type: String, desc: 'Phone number.'
-          optional :level, type: Fixnum, desc: 'Level.'
+          optional :level, type: String, desc: 'Level.'
           optional :rank, type: Fixnum, desc: 'Rank.'
           optional :status, type: String, desc: 'Status.'
           optional :buzzes, type: Fixnum, desc: 'Buzzes.'
           optional :notes, type: String, desc: 'Notes.'
+          optional :tag_ids, type: Array, desc: 'Tag ids.'
         end
       end
       put ':id' do
@@ -107,6 +108,7 @@ EOS
           @client = exists! Client.find_by_id(permitted_params[:id])
           authorize! @client, :update?
           @client.update(permitted_params[:client])
+          @client.update_tags(permitted_params[:client][:tag_ids], current_user.id) if permitted_params[:client][:tag_ids]
           @client = Client.find_by_id(permitted_params[:id])
           @client
         end

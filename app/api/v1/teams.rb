@@ -5,31 +5,6 @@ module V1
     version 'v1', using: :path
     format :json
 
-    namespace :select_teams do
-
-     # GET /api/v1/select_teams
-      desc 'Return list of teams for select' do
-        detail <<EOS
-This entry point is used to list teams for select.
-EOS
-      end
-      params do
-        optional :query, type: String, desc: 'Query.'
-      end
-      get do
-        benchmark do
-          authenticate!
-          authorize! Team, :index?
-
-          if params[:query]
-            Team.select2(Team.search(params[:query]))
-          else
-            Team.select2(Team.all)
-          end
-        end
-      end
-    end
-
     resource :teams do
 
       pagination per_page: 20, max_per_page: 30, offset: 0

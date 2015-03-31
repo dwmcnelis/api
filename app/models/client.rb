@@ -7,6 +7,9 @@ class Client < ActiveRecord::Base
 
   belongs_to :user
 
+  has_many :taggings, as: :tagged, dependent: :destroy, class_name: 'Tagging'
+  has_many :tags, -> { uniq }, through: :taggings, source: :tag, class_name: 'Tag'
+
   scope :user_is, ->(user) { where(user: user) }
   scope :no_user, -> { where(user_id: nil) }
 
@@ -14,7 +17,7 @@ class Client < ActiveRecord::Base
 
     def search(query)
 		  query = "%#{query}%"
-		  first_names = arel_table[:first_name].matches(query)
+		  first_name = arel_table[:first_name].matches(query)
 		  last_name = arel_table[:last_name].matches(query)
 		  where(first_name.or(last_name))
 		end
@@ -27,6 +30,31 @@ class Client < ActiveRecord::Base
 
   def unowned?
     self.user_id.nil?
+  end
+
+  def full_name
+    (!self.first_name.blank? ? self.last_name : '') + ' ' + (!self.last_name.blank? ? self.last_name : '')
+  end
+
+  def sort_name
+    (!self.last_name.blank? ? self.last_name : '') + (!self.first_name.blank? ? ', '+ self.first_name : '')
+  end
+
+  def update_tags(tag_ids, user_id)
+    now = tag_ids
+    was = self.taggings.map(&:tag_id)
+    keep = now & was
+    remove = was - now
+    add = now - was
+
+    self.taggings.where(tag_id: remove).each do |tagging|
+      tagging.destroy
+    end
+
+    add.each do |tag_id|
+      tag = Tag.find_by_id(tag_id)
+      Tagging.create(as: tag.as, tag_id: tag_id, tagged_type: self.class.name, tagged_id: self.id, user_id: user_id)
+    end
   end
 
   # image as dragonfly attachment with static fallback

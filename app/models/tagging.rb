@@ -2,18 +2,15 @@ class Tagging < ActiveRecord::Base
 
     belongs_to :tag, counter_cache: true
     belongs_to :tagged, polymorphic: true
-    belongs_to :tagger, polymorphic: true
+
     belongs_to :user
 
     #validates_presence_of :as
     validates_presence_of :tag_id
 
-    validates_uniqueness_of :tag_id, scope: [:as, :tagged_type, :tagged_id, :tagger_type, :tagger_id]
+    validates_uniqueness_of :tag_id, scope: [:as, :tag_id, :tagged_id, :tagged_type, :user_id]
 
     after_destroy :remove_unused_tags
-
-    scope :tagger_is, ->(tagger) { where(tagger: tagger) }
-    scope :no_tagger, -> { where(tagger_id: nil, tagger_type: nil) }
 
     scope :tagged_is, ->(tagged) { where(tagged: tagged) }
     scope :no_tagged, -> { where(tagged_id: nil, tagged_type: nil) }

@@ -8,6 +8,10 @@ class Team < ActiveRecord::Base
   belongs_to :conference
   belongs_to :user
 
+  has_many :taggings, as: :tagged, dependent: :destroy
+  has_many :base_tags, through: :taggings, source: :tag
+
+
   before_save :slugify
 
   scope :user_is, ->(user) { where(user: user) }
@@ -15,6 +19,13 @@ class Team < ActiveRecord::Base
 
 
   class << self
+
+    def find_or_create(name, level, kind, options={})
+      user_id ||= options[:user_id]
+      user_id ||= options[:user] ? options[:user].id : nil
+      Team.where(name: name, level: Team.levels[level], kind: Team.kinds[kind]).first || create(name: name, level: level, kind: kind, user_id: user_id)
+    end
+
   	def slugify(name)
 	  	# strip the string
 	    slug = name.strip
@@ -48,26 +59,6 @@ class Team < ActiveRecord::Base
 		  where(name.or(aliases))
 		end
 
-		def select2(teams)
-			{"select_#{Team.to_s.downcase.pluralize}":
-				teams.to_a.group_by do |team|
-				 # "#{team.grouping.upcase} #{team.kind.upcase}"
-				 "#{team.grouping.upcase}"
-				end.inject([]) do |result, pair|
-					group = pair[0]
-					teams = pair[1]
-					puts "group: #{group} teams.count: #{teams.count}"
-					result << {
-						id: group,
-						text: group,
-						children: teams.map do |team|
-							{id: team.id, text: team.name, description: team.kind}
-						end
-					}
-					result
-				end
-			}
-		end
   end # class << self
 
   def owner?(user)
@@ -83,9 +74,9 @@ class Team < ActiveRecord::Base
   end
 
 	def grouping
-		return "#{self.league.short_name}" if self.league 
-		return "#{self.division.short_name}" if self.league 
-		return "#{self.conference.short_name}" if self.league 
+		return "#{self.league.short_name} #{self.kind}" if self.league 
+		return "#{self.division.short_name} #{self.kind}" if self.league 
+		return "#{self.conference.short_name} #{self.kind}" if self.league 
 
 		# return "#{self.league.short_name} #{self.conference.short_name}" if self.league && self.conference 
 		# return "#{self.conference.short_name}" if self.conference 

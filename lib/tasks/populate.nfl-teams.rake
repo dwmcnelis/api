@@ -15,55 +15,87 @@ namespace :db do
       afc_north = Conference.create(short_name: 'AFC North', full_name: 'American Football Conference - North', user_id: nil, verified: 1)
       afc_south = Conference.create(short_name: 'AFC South', full_name: 'American Football Conference - South', user_id: nil, verified: 1)
 
-
       # AFC East
-			Team.create(name: 'Buffalo Bills', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_east.id, user_id: nil, verified: 1)
-			Team.create(name: 'Miami Dolphins', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_east.id, user_id: nil, verified: 1)
-			Team.create(name: 'New England Patriots', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_east.id, user_id: nil, verified: 1)
-			Team.create(name: 'New York Jets', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_east.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Buffalo Bills', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_east.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Miami Dolphins', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_east.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('New England Patriots', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_east.id, user_id: nil, verified: 1, aliases: "ne pats")
+			team = Team.find_or_create('New York Jets', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_east.id, user_id: nil, verified: 1, aliases: "ny")
+
 		
 			# AFC West
-			Team.create(name: 'Denver Broncos', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_west.id, user_id: nil, verified: 1)
-			Team.create(name: 'Kansas City Chiefs', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_west.id, user_id: nil, verified: 1)
-			Team.create(name: 'Oakland Raiders', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_west.id, user_id: nil, verified: 1)
-			Team.create(name: 'San Diego Chargers', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_west.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Denver Broncos', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_west.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Kansas City Chiefs', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_west.id, user_id: nil, verified: 1, aliases: "kc")
+			team = Team.find_or_create('Oakland Raiders', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_west.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('San Diego Chargers', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_west.id, user_id: nil, verified: 1, aliases: "sd")
 
 			# AFC North
-			Team.create(name: 'Baltimore Ravens', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_north.id, user_id: nil, verified: 1)
-			Team.create(name: 'Cincinnati Bengals', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_north.id, user_id: nil, verified: 1)
-			Team.create(name: 'Cleveland Browns', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_north.id, user_id: nil, verified: 1)
-			Team.create(name: 'Pittsburgh Steelers', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_north.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Baltimore Ravens', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_north.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Cincinnati Bengals', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_north.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Cleveland Browns', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_north.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Pittsburgh Steelers', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_north.id, user_id: nil, verified: 1, aliases: nil)
 
 			# AFC South
-			Team.create(name: 'Houston Texans', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_south.id, user_id: nil, verified: 1)
-			Team.create(name: 'Indianapolis Colts', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_south.id, user_id: nil, verified: 1)
-			Team.create(name: 'Jacksonville Jaguars', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_south.id, user_id: nil, verified: 1)
-			Team.create(name: 'Tennessee Titans', level: :professional, kind: :football, league_id: nfl.id, division_id: afc.id, conference_id: afc_south.id, user_id: nil, verified: 1)
-
+			team = Team.find_or_create('Houston Texans', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_south.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Indianapolis Colts', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_south.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Jacksonville Jaguars', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_south.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Tennessee Titans', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: afc.id, conference_id: afc_south.id, user_id: nil, verified: 1, aliases: nil)
 
       # NFC East
-			Team.create(name: 'Dallas Cowboys', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_east.id, user_id: nil, verified: 1)
-			Team.create(name: 'New York Giants', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_east.id, user_id: nil, verified: 1)
-			Team.create(name: 'Philadelphia Eagles', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_east.id, user_id: nil, verified: 1)
-			Team.create(name: 'Washington Redskins', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_east.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Dallas Cowboys', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_east.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('New York Giants', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_east.id, user_id: nil, verified: 1, aliases: "ny")
+			team = Team.find_or_create('Philadelphia Eagles', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_east.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Washington Redskins', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_east.id, user_id: nil, verified: 1, aliases: nil)
 	
       # NFC West
-			Team.create(name: 'Arizona Cardinals', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_west.id, user_id: nil, verified: 1)
-			Team.create(name: 'San Francisco 49ers', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_west.id, user_id: nil, verified: 1)
-			Team.create(name: 'Seattle Seahawks', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_west.id, user_id: nil, verified: 1)
-			Team.create(name: 'St. Louis Rams', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_west.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Arizona Cardinals', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_west.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('San Francisco 49ers', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_west.id, user_id: nil, verified: 1, aliases: "sf")
+			team = Team.find_or_create('Seattle Seahawks', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_west.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('St. Louis Rams', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_west.id, user_id: nil, verified: 1, aliases: "sl")
 
       # NFC North
-			Team.create(name: 'Chicago Bears', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_north.id, user_id: nil, verified: 1)
-			Team.create(name: 'Detroit Lions', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_north.id, user_id: nil, verified: 1)
-			Team.create(name: 'Green Bay Packers', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_north.id, user_id: nil, verified: 1)
-			Team.create(name: 'Minnesota Vikings', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_north.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Chicago Bears', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_north.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Detroit Lions', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_north.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Green Bay Packers', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_north.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Minnesota Vikings', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_north.id, user_id: nil, verified: 1, aliases: "purple")
+
 
       # NFC South
-			Team.create(name: 'Atlanta Falcons', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_south.id, user_id: nil, verified: 1)
-			Team.create(name: 'Carolina Panthers', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_south.id, user_id: nil, verified: 1)
-			Team.create(name: 'New Orleans Saints', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_south.id, user_id: nil, verified: 1)
-			Team.create(name: 'Tampa Bay Buccaneers', level: :professional, kind: :football, league_id: nfl.id, division_id: nfc.id, conference_id: nfc_south.id, user_id: nil, verified: 1)
+			team = Team.find_or_create('Atlanta Falcons', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_south.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('Carolina Panthers', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_south.id, user_id: nil, verified: 1, aliases: nil)
+			team = Team.find_or_create('New Orleans Saints', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_south.id, user_id: nil, verified: 1, aliases: "no")
+			team = Team.find_or_create('Tampa Bay Buccaneers', :professional, :football)
+			team.update_attributes(league_id: nfl.id, division_id: nfc.id, conference_id: nfc_south.id, user_id: nil, verified: 1, aliases: "tb")
 
     end
   end
