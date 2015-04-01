@@ -1,3 +1,4 @@
+
 class API < Grape::API
 
   include Concerns::Authenticate
@@ -14,6 +15,8 @@ class API < Grape::API
   prefix 'api'
 
   #rescue_from :all
+
+  use ApiLogger
 
   mount V1::Authorization
   mount V1::Attachments
