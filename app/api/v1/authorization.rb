@@ -2,7 +2,7 @@ module V1
 
   class Authorization < API
 
-    version 'v1', using: :path
+    version 'v1', using: :path, vendor: 'clientbuzz', cascade: false
     format :json
 
     namespace '' do

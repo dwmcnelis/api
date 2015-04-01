@@ -39,7 +39,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  #config.middleware.use 'ApiLogger'
+  config.middleware.use 'ApiLogger'
 
   # Serving content url prefix
   config.buzz.content_server = "#{config.force_ssl ? 'https' : 'http'}://localhost:3002"
