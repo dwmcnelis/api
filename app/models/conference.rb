@@ -1,3 +1,5 @@
+# app/models/conference.rb
+
 class Conference < ActiveRecord::Base
 
   has_one :user

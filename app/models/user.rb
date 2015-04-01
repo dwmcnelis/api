@@ -1,3 +1,5 @@
+# app/models/user.rb
+
 require 'token'
 
 class User < ActiveRecord::Base

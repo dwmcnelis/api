@@ -1,3 +1,5 @@
+# app/policies/tag_policy.rb
+
 class TagPolicy < ApplicationPolicy
   attr_reader :user, :tag
 

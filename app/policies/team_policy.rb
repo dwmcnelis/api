@@ -1,3 +1,5 @@
+# app/policies/team_policy.rb
+
 class TeamPolicy < ApplicationPolicy
   attr_reader :user, :team
 

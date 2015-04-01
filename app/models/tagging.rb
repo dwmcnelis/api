@@ -1,3 +1,5 @@
+# app/models/tagging.rb
+
 class Tagging < ActiveRecord::Base
 
     belongs_to :tag, counter_cache: true

@@ -1,3 +1,5 @@
+# app/models/concerns/secure_password.rb
+
 module Concerns
 
   module SecurePassword

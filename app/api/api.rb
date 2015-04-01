@@ -1,3 +1,4 @@
+# app/api.rb
 
 class API < Grape::API
 
@@ -11,7 +12,7 @@ class API < Grape::API
   UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
 
   format :json
-  version 'v1', using: :path, vendor: 'clientbuzz', cascade: false
+  version 'v1', using: :path, vendor: 'clientbuzz'#, cascade: false
   formatter :json, Grape::Formatter::ActiveModelSerializers
   prefix 'api'
 

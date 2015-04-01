@@ -1,3 +1,4 @@
+# app/models/credential.rb
 
 class Credential < ActiveRecord::Base
 

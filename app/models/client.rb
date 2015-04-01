@@ -1,3 +1,5 @@
+# app/models/client.rb
+
 class Client < ActiveRecord::Base
 
 	enum level: { a_list: 0, b_list: 1, c_list: 2}

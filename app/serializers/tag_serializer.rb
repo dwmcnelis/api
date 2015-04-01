@@ -1,3 +1,5 @@
+# app/serializers/tag_serializer.rb
+
 class TagSerializer < ActiveModel::Serializer
   attributes :id, :as, :grouping, :text, :description
 

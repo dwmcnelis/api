@@ -1,3 +1,5 @@
+# app/models/concerns/credence.rb
+
 require 'encrypted_string'
 require 'encrypted_hash'
 

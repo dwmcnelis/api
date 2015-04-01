@@ -1,4 +1,6 @@
- class DuplicateTagError < StandardError; end
+# app/models/tag.rb
+
+class DuplicateTagError < StandardError; end
 
 
 class Tag < ActiveRecord::Base

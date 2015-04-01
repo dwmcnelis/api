@@ -1,3 +1,5 @@
+# app/models/team.rb
+
 class Team < ActiveRecord::Base
 
 	enum level: {professional: 0, olympic: 1, college: 2, high_school: 3, middle_school: 4, town: 5, club: 6, other_level: 32767}

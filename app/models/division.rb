@@ -1,3 +1,5 @@
+# app/models/division.rb
+
 class Division < ActiveRecord::Base
 
   has_one :user
