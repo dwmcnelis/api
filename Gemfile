@@ -13,9 +13,12 @@ gem 'pg', '~> 0.18.1' # Use postgres as the database for Active Record
 gem 'encrypted_strings', '~> 0.3.3' # Dead-simple string encryption/decryption
 gem 'colorize', '~> 0.7.5'	# Text color using ANSI escape sequences
 gem 'bcrypt'#, '~> 3.1.10'	# OpenBSD password hashing algorithm
-gem 'rotp'#, '~> 2.1.0'	# One time passwords
+gem 'rotp'#, '~> 2.1.0'		# One time passwords
 gem 'jwt', '~> 1.2.1'		# JSON Web Tokens
-gem 'dragonfly', '~> 1.0.7' # On-the-fly processing of images and other attachments
+gem 'dragonfly', '~> 1.0.7'	# On-the-fly processing of images and other attachments
+#gem 'feedjira', '~> 1.6.0'	# Feed fetching and parsing
+gem 'feedjira', git: 'git@github.com:feedjira/feedjira.git', tag: 'v2.0.0.rc1' # Feed parsing
+gem 'rest-client', '~> 1.8.0'	# Simple HTTP and REST client
 
 group :development do
   gem 'spring-commands-rspec' # Add 'rspec' command for Spring
