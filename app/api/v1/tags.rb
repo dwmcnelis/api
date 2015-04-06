@@ -108,7 +108,7 @@ EOS
       params do
         requires :id, type: String, regexp: UUID_REGEXP, desc: "tag id."
         requires :tag, :type => Hash do
-          requires :name, type: String, desc: 'Name.'
+          optional :name, type: String, desc: 'Name.'
           optional :as, type: String, desc: 'Tagged as type.'
           optional :description, type: String, desc: 'Description.'
           #optional :user_id, type: String, desc: 'User id.'

@@ -34,9 +34,9 @@ module Concerns
         end
 
         def authenticate!
-          error!({ error:  'Unauthorized',
-                   detail: "Not authorized for route '#{request.request_method} #{request.path}'",
-                   status: '401'},
+          error!({error: 'Unauthorized',
+                  detail: "Not authorized for route '#{request.request_method} #{request.path}'",
+                  status: '401'},
                  401) unless current_user
 
         end

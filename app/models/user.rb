@@ -4,11 +4,14 @@ require 'token'
 
 class User < ActiveRecord::Base
 
-  enum gender: { male: 0, female: 1, unknown: 2}
+  include Concerns::GenderEnum
 
+  enum gender: gender_enum
 
   has_one :credential
   has_many :clients
+  has_many :teams
+  has_many :tags
 
   class << self
     def search(query)
@@ -33,7 +36,7 @@ class User < ActiveRecord::Base
 
   end # class << self
 
-  def valid?
+  def is_valid?
     !self.banned? && self.tos?
   end
 

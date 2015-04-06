@@ -60,7 +60,7 @@ EOS
           optional :rank, type: Fixnum, desc: 'Rank.'
           optional :status, type: String, desc: 'Status.'
           optional :buzzes, type: Fixnum, desc: 'Buzzes.'
-          optional :Notes, type: String, desc: 'Notes.'
+          optional :notes, type: String, desc: 'Notes.'
         end
       end
       post do

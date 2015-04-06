@@ -1,3 +1,5 @@
+# spec/rails_helper.rb
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
@@ -49,3 +51,8 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 end
+
+RSpec.configure do |config|
+  config.include RSpec::Rails::RequestExampleGroup, type: :request, file_path: /spec\/api/
+end
+

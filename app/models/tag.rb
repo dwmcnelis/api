@@ -5,6 +5,10 @@ class DuplicateTagError < StandardError; end
 
 class Tag < ActiveRecord::Base
 
+  include Concerns::AsEnum
+
+  enum as: as_enum
+
   belongs_to :for, polymorphic: true
   belongs_to :user
   has_many :taggings, dependent: :destroy
@@ -22,8 +26,8 @@ class Tag < ActiveRecord::Base
   scope :most_used, ->(limit = 20) { order('taggings_count desc').limit(limit) }
   scope :least_used, ->(limit = 20) { order('taggings_count asc').limit(limit) }
 
-  scope :tagged_as_any, ->(as = ['type']) { where(as: as) }
-  scope :tagged_as, ->(as = 'type') { tagged_as_any(as.to_s) }
+  scope :tagged_as_any, ->(as = ['type']) { where(as: as_code(as)) }
+  scope :tagged_as, ->(as = 'type') { tagged_as_any(as) }
 
   scope :user_is, ->(user) { where(user: user) }
   scope :no_user, -> { where(user_id: nil) }

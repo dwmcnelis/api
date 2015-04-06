@@ -2,6 +2,10 @@
 
 class Tagging < ActiveRecord::Base
 
+    include Concerns::AsEnum
+
+    enum as: as_enum
+
     belongs_to :tag, counter_cache: true
     belongs_to :tagged, polymorphic: true
 

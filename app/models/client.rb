@@ -2,8 +2,11 @@
 
 class Client < ActiveRecord::Base
 
-	enum level: { a_list: 0, b_list: 1, c_list: 2}
-	enum status: { initial: 0, verified: 1, qualified: 2, disqualified: 3, inactive: 4, active: 5}
+  include Concerns::ClientLevelEnum
+  include Concerns::ClientStatusEnum
+
+	enum level: level_enum
+	enum status: status_enum
 
   dragonfly_accessor :image
 

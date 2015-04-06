@@ -1,7 +1,7 @@
 class CreateTags < ActiveRecord::Migration
   def change
     create_table :tags, id: :uuid do |t|
-      t.string :as, limit: 128, default: nil
+      t.integer :as
       t.string :name, limit: 128, default: nil
       t.string :description, limit: 128, default: nil
       t.string :grouping, limit: 128, default: nil

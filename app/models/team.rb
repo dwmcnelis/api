@@ -2,8 +2,11 @@
 
 class Team < ActiveRecord::Base
 
-	enum level: {professional: 0, olympic: 1, college: 2, high_school: 3, middle_school: 4, town: 5, club: 6, other_level: 32767}
-	enum kind: {football: 0, soccer: 1, basketball: 2, baseball: 3, softball: 4, hockey: 5, other_type: 32767}
+  include Concerns::TeamLevelEnum
+  include Concerns::TeamKindEnum
+
+	enum level: level_enum
+	enum kind: kind_enum
 
   belongs_to :league
   belongs_to :division

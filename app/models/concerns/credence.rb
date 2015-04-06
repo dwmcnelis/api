@@ -2,7 +2,7 @@
 
 require 'encrypted_string'
 require 'encrypted_hash'
-
+ 
 module Concerns
 
   module Credence

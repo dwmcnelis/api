@@ -11,11 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325155121) do
+ActiveRecord::Schema.define(version: 20150404004046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "articles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.integer  "as"
+    t.string   "title"
+    t.string   "url"
+    t.string   "author"
+    t.text     "summary"
+    t.text     "content"
+    t.string   "image"
+    t.string   "categories"
+    t.string   "entry_id"
+    t.integer  "tagged",        limit: 2, default: 0, null: false
+    t.uuid     "feed_id"
+    t.uuid     "user_id"
+    t.datetime "published_at"
+    t.datetime "aggregated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "articles", ["aggregated_at"], name: "index_articles_on_aggregated_at", using: :btree
+  add_index "articles", ["entry_id"], name: "index_articles_on_entry_id", using: :btree
+  add_index "articles", ["feed_id"], name: "index_articles_on_feed_id", using: :btree
+  add_index "articles", ["published_at"], name: "index_articles_on_published_at", using: :btree
 
   create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id"
@@ -69,6 +93,26 @@ ActiveRecord::Schema.define(version: 20150325155121) do
     t.datetime "updated_at"
   end
 
+  create_table "feeds", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.integer  "as"
+    t.string   "name"
+    t.string   "url"
+    t.string   "title"
+    t.string   "description"
+    t.string   "feed_url"
+    t.string   "type",             limit: 40
+    t.string   "etag"
+    t.uuid     "user_id"
+    t.datetime "last_modified_at"
+    t.datetime "aggregated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feeds", ["aggregated_at"], name: "index_feeds_on_aggregated_at", using: :btree
+  add_index "feeds", ["last_modified_at"], name: "index_feeds_on_last_modified_at", using: :btree
+  add_index "feeds", ["url"], name: "index_feeds_on_url", using: :btree
+
   create_table "leagues", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "short_name", limit: 254
     t.string   "full_name",  limit: 254
@@ -79,25 +123,27 @@ ActiveRecord::Schema.define(version: 20150325155121) do
   end
 
   create_table "taggings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "as",          limit: 128
+    t.integer  "as"
     t.uuid     "tag_id"
-    t.uuid     "tagged_id"
     t.string   "tagged_type", limit: 128
-    t.uuid     "tagger_id"
-    t.string   "tagger_type", limit: 128
+    t.uuid     "tagged_id"
     t.integer  "importance",  limit: 2,   default: 0, null: false
     t.uuid     "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "taggings", ["as", "tag_id", "tagged_id", "tagged_type", "tagger_id", "tagger_type"], name: "taggings_unique_index", unique: true, using: :btree
-  add_index "taggings", ["as", "tagged_id", "tagged_type"], name: "taggings_index", using: :btree
+  add_index "taggings", ["as", "tag_id", "tagged_id", "tagged_type", "user_id"], name: "taggings_index", unique: true, using: :btree
+  add_index "taggings", ["as", "tagged_id", "tagged_type"], name: "taggings_tagged_index", using: :btree
 
   create_table "tags", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "as",             limit: 128
+    t.integer  "as"
     t.string   "name",           limit: 128
     t.string   "description",    limit: 128
+    t.string   "grouping",       limit: 128
+    t.string   "aliases",        limit: 128
+    t.string   "for_type",       limit: 128
+    t.uuid     "for_id"
     t.integer  "taggings_count",             default: 0
     t.string   "image_uid",      limit: 254
     t.string   "image_name",     limit: 254
@@ -107,7 +153,7 @@ ActiveRecord::Schema.define(version: 20150325155121) do
     t.datetime "updated_at"
   end
 
-  add_index "tags", ["as", "name", "description"], name: "tags_index", unique: true, using: :btree
+  add_index "tags", ["as", "name", "description", "user_id"], name: "tags_index", unique: true, using: :btree
 
   create_table "teams", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",          limit: 254

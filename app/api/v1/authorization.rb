@@ -25,9 +25,9 @@ EOS
           if @user
             {'token' => @user.generate_token(expires: Token.expires(TOKEN_DURATION)).to_s}
           else
-            error!({ error:  'Unauthorized',
-                     detail: "Invalid username or password",
-                     status: '401'},
+            error!({error: 'Unauthorized',
+                    detail: 'Invalid username or password',
+                    status: '401'},
                    401)
           end
         end
@@ -81,9 +81,9 @@ EOS
               {'token' => authorization_token}
             end
           else
-            error!({ error:  'Unauthorized',
-                     detail: "Invalid token",
-                     status: '401'},
+            error!({error:  'Unauthorized',
+                    detail: 'Invalid token',
+                    status: '401'},
                    401)
           end
         end
