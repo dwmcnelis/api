@@ -30,8 +30,8 @@ class ApiLogger < Grape::Middleware::Base
          logger.info "[api]< ".colorize(PREFIX_COLOR)+"#{line}".colorize(REQUEST_COLOR)
         end
       elsif content_type =~ /multipart\/form-data/
-        File.open('/Users/dmcnelis/Development/api/multipart', 'wb') { |file| file.write(request.body.string) }    
-      else
+        logger.info "[api]< ".colorize(PREFIX_COLOR)+"multipart\/form-data ...".colorize(REQUEST_COLOR)
+       else
         logger.info "[api]< ".colorize(PREFIX_COLOR)+"#{request.body.string}".colorize(REQUEST_COLOR)
       end
     end

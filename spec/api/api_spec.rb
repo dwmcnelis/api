@@ -33,33 +33,33 @@ describe API do
     end
   end # 'GET /'
 
-  # # GET /unmatched
-  # describe 'GET /unmatched' do
-  #   let!(:user) { create(:user) }
-  #   let!(:invalid_user) { nil }
+  # GET /unmatched
+  describe 'GET /unmatched' do
+    let!(:user) { create(:user) }
+    let!(:invalid_user) { nil }
 
-  #   it 'returns not found when valid user' do
-  #     headers = merge_headers(
-  #       auth_header(user),
-  #       accept_header('application/json')
-  #     )
+    it 'returns not found when valid user' do
+      headers = merge_headers(
+        auth_header(user),
+        accept_header('application/json')
+      )
 
-  #     get '/unmatched', nil, headers
+      get '/unmatched', nil, headers
 
-  #     expect(response.status).to be_status_not_found
-  #   end
+      expect(response.status).to be_status_not_found
+    end
 
-  #   it 'returns unauthorized when invalid user' do
-  #     headers = merge_headers(
-  #       auth_header(invalid_user),
-  #       accept_header('application/json')
-  #     )
+    it 'returns unauthorized when invalid user' do
+      headers = merge_headers(
+        auth_header(invalid_user),
+        accept_header('application/json')
+      )
 
-  #     get '/unmatched', nil, headers
+      get '/unmatched', nil, headers
 
-  #     expect(response.status).to be_status_not_found
-  #   end
-  # end # 'GET /unmatched'
+      expect(response.status).to be_status_not_found
+    end
+  end # 'GET /unmatched'
 
   # Error formatter
   describe 'Error formatter' do

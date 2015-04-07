@@ -14,7 +14,6 @@ class API < Grape::API
   TOKEN_DURATION = 15*60*1000  # Fifteen minutes in milliseconds
   UUID_REGEXP = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
 
-  version '', using: :path, vendor: 'clientbuzz'#, cascade: false
   prefix ''
   format :json
   formatter :json, Grape::Formatter::ActiveModelSerializers
@@ -37,11 +36,11 @@ class API < Grape::API
   end
 
   # 404 error for all unmatched routes except '/'
-  # route :any, '*path' do
-  #   error!({ error:  'Not Found',
-  #            detail: "No such route '#{request.request_method} #{request.path}'",
-  #            status: '404'},
-  #          404)
-  # end
+  route :any, '*path' do
+    error!({ error:  'Not Found',
+             detail: "No such route '#{request.request_method} #{request.path}'",
+             status: '404'},
+           404)
+  end
 
 end # API

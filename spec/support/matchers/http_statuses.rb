@@ -60,10 +60,8 @@
 		insufficient_storage: 507,
 		not_extended: 510
 	}.each do |symbol, code|
-		
-		method = "be_status_#{symbol}"
 
-		RSpec::Matchers.define method do |first|
+		RSpec::Matchers.define "be_status_#{symbol}" do |first|
 		  match do |actual|
 		  	actual == code
 		  end

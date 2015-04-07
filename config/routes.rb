@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-	# Grape API
-  mount API => '/'
-
   # Dragonfly default
   mount Dragonfly.app => '/'
   get '/content/thumb/:geometry/:job/*file_name' => Dragonfly.app.endpoint { |params, app|
@@ -18,5 +15,8 @@ Rails.application.routes.draw do
     job.validate_sha!(params[:sha])
     job.thumb(params[:geometry]).apply
   }
+
+  # Grape API
+  mount API => '/'
 
 end
