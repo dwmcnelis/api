@@ -1,5 +1,8 @@
 # app/api/v1/attachments.rb
 
+# Attachments API
+#
+
 module V1
 
   class Attachments < API
@@ -38,15 +41,6 @@ EOS
       post do
         benchmark do
           authenticate!
-
-          # debugger
-          # unless params[:attachment][:content][:tempfile]
-          #   puts "error: no tempfile!".colorize(:red)
-          #   error!({error: 'Bad request',
-          #         detail: 'Invalid parameters',
-          #         status: '400'},
-          #        403)
-          # end
 
           for_type = params[:attachment][:for_type]
           for_id = params[:attachment][:for_id]

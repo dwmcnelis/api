@@ -1,5 +1,9 @@
 # app/models/concerns/credence.rb
 
+# Credence authentication. Provides secure password, secure key/signature
+# and secure multi-factor (ROTP/HOTP one time password) support.
+#
+
 require 'encrypted_string'
 require 'encrypted_hash'
  

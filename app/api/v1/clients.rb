@@ -1,5 +1,8 @@
 # app/api/v1/clients.rb
 
+# Clients API
+#
+
 module V1
 
   class Clients < API

@@ -1,5 +1,8 @@
 # app/api/api_error_formatter.rb
 
+# API error formatter
+#
+
 module ApiErrorFormatter
   def self.call(message, backtrace, options, env)
     if message.kind_of?(String)

@@ -1,5 +1,8 @@
 # app/models/concerns/client_status_enum.rb
 
+# Client status enumeration
+#
+
 module Concerns
 
   module ClientStatusEnum

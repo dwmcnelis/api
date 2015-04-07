@@ -8,22 +8,27 @@ class ClientPolicy < ApplicationPolicy
     @client = client
   end
 
+  # admin or valid user
   def index?
     user.admin? || user.is_valid?
   end
 
+  # admin or valid owner
   def show?
     user.admin? || (user.is_valid? && client.owner?(user))
   end
 
+  # admin or valid user
   def create?
     user.admin? || user.is_valid?
   end
 
+  # admin or valid owner
   def update?
     user.admin? || (user.is_valid? && client.owner?(user))
   end
 
+  # admin or valid owner
   def destroy?
     user.admin? || (user.is_valid? && client.owner?(user))
   end

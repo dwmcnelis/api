@@ -1,5 +1,8 @@
 # app/models/client.rb
 
+# Client
+#
+
 class Client < ActiveRecord::Base
 
   include Concerns::ClientLevelEnum
@@ -20,6 +23,12 @@ class Client < ActiveRecord::Base
 
   class << self
 
+    # Search by first or last name
+    #
+    # @param [String] query
+    #
+    # @return [ActiveRecord_Relation] scope
+    #    
     def search(query)
 		  query = "%#{query}%"
 		  first_name = arel_table[:first_name].matches(query)
@@ -45,6 +54,11 @@ class Client < ActiveRecord::Base
     (!self.last_name.blank? ? self.last_name : '') + (!self.first_name.blank? ? ', '+ self.first_name : '')
   end
 
+  # Update tags by adding/removing taggings as appropriate
+  #
+  # @param [Array<String>] tag_ids
+  # @param [String] user_id
+  #
   # :nocov:
   def update_tags(tag_ids, user_id)
     now = tag_ids
@@ -65,8 +79,9 @@ class Client < ActiveRecord::Base
   # :nocov:
 
 
-  # image as dragonfly attachment with static fallback
+  # Image as dragonfly attachment with static fallback
   # so you can chain :process, :thumb, :url, etc.
+  #
   # @return [Dragonfly::Attachment]
   # :nocov:
   def image_attachment

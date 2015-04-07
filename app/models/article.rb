@@ -1,5 +1,8 @@
 # app/models/article.rb
 
+# Article from (news/blog) feed
+#
+
 class Article < ActiveRecord::Base
 
   include Concerns::AsEnum
@@ -23,6 +26,12 @@ class Article < ActiveRecord::Base
 
   class << self
 
+    # Search by title/summary/content
+    #
+    # @param [String] query
+    #
+    # @return [ActiveRecord_Relation] scope
+    #
     def search(query)
       query = "%#{query}%"
       title = arel_table[:title].matches(query)
@@ -31,6 +40,10 @@ class Article < ActiveRecord::Base
       where(ntitleame.or(summary).or(content))
     end
 
+    # Find or create by entry id
+    #
+    # @param [String] entry_id uniqe id
+    #
     def find_or_create(entry_id, options={})
       Article.where(entry_id: entry_id).first || create(options.merge({entry_id: entry_id}))
     end

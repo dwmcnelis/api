@@ -1,5 +1,8 @@
 # app/models/tagging.rb
 
+# Tagging join model
+#
+
 class Tagging < ActiveRecord::Base
 
     include Concerns::AsEnum
@@ -33,6 +36,8 @@ class Tagging < ActiveRecord::Base
 
     private
 
+    # Remove unused tags
+    #
     # :nocov:
     def remove_unused_tags
         if true

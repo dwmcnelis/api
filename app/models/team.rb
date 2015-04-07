@@ -1,5 +1,8 @@
 # app/models/team.rb
 
+# Team (sports)
+#
+
 class Team < ActiveRecord::Base
 
   include Concerns::TeamLevelEnum
@@ -22,15 +25,26 @@ class Team < ActiveRecord::Base
   scope :user_is, ->(user) { where(user: user) }
   scope :no_user, -> { where(user_id: nil) }
 
-
   class << self
 
+    # Find or create by name,level,kind
+    #
+    # @param [String] name
+    # @param [String] level
+    # @param [String] kind
+    #
     def find_or_create(name, level, kind, options={})
       user_id ||= options[:user_id]
       user_id ||= options[:user] ? options[:user].id : nil
       Team.where(name: name, level: Team.levels[level], kind: Team.kinds[kind]).first || create(name: name, level: level, kind: kind, user_id: user_id)
     end
 
+    # Slugify name
+    #
+    # @param [String] name
+    #
+    # @return [String] slug
+    #
   	def slugify(name)
 	  	# strip the string
 	    slug = name.strip
@@ -57,6 +71,12 @@ class Team < ActiveRecord::Base
 			slug
   	end
 
+    # Search by name or aliases
+    #
+    # @param [String] query
+    #
+    # @return [ActiveRecord_Relation] scope
+    #    
   	def search(query)
 		  query = "%#{query}%"
 		  name = arel_table[:name].matches(query)
@@ -80,14 +100,8 @@ class Team < ActiveRecord::Base
 
 	def grouping
 		return "#{self.league.short_name} #{self.kind}" if self.league 
-		return "#{self.division.short_name} #{self.kind}" if self.league 
-		return "#{self.conference.short_name} #{self.kind}" if self.league 
-
-		# return "#{self.league.short_name} #{self.conference.short_name}" if self.league && self.conference 
-		# return "#{self.conference.short_name}" if self.conference 
-		# return "#{self.league.short_name} #{self.division.short_name}" if self.league && self.division 
-		# return "#{self.division.short_name}" if self.division 
-		# return "#{self.league.short_name}" if self.league 
+		return "#{self.division.short_name} #{self.kind}" if self.division 
+		return "#{self.conference.short_name} #{self.kind}" if self.conference 
 		nil
   end
 

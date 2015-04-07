@@ -1,5 +1,8 @@
 # app/models/concerns/team_kind_enum.rb
 
+# Team kind enumeration
+#
+
 module Concerns
 
   module TeamKindEnum

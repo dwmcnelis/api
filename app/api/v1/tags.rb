@@ -1,5 +1,8 @@
 # app/api/v1/tags.rb
 
+# Tags API
+#
+
 module V1
 
   class Tags < API

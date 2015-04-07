@@ -1,5 +1,8 @@
 # app/policies/application_policy.rb
 
+# Application policy. Deny all by default.
+#
+
 class ApplicationPolicy
   attr_reader :user, :record
 

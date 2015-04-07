@@ -1,5 +1,8 @@
 # app/api/v1/authorization.rb
 
+# Authorization API
+#
+
 module V1
 
   class Authorization < API

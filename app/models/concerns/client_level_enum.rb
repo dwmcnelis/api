@@ -1,5 +1,8 @@
 # app/models/concerns/client_level_enum.rb
 
+# Client level enumeration
+#
+
 module Concerns
 
   module ClientLevelEnum

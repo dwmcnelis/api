@@ -1,5 +1,8 @@
 # app/models/league.rb
 
+# Team league
+#
+
 class League < ActiveRecord::Base
 
   has_one :user

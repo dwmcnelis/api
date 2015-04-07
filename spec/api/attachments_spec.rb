@@ -23,7 +23,7 @@ describe V1::Attachments do
 
       post '/api/v1/attachments', body, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
 	    expect(json.include?('attachment')).to eq(true)
       attachment = json['attachment']
@@ -54,7 +54,7 @@ describe V1::Attachments do
 
       post '/api/v1/attachments', body, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'POST /api/v1/attachments'
 

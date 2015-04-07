@@ -1,5 +1,8 @@
 # app/models/concerns/gender_enum.rb
 
+# Gender enumeration
+#
+
 module Concerns
 
   module GenderEnum

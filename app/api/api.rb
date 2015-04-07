@@ -1,5 +1,8 @@
 # app/api/api.rb
 
+# ClientBuzz API
+#
+
 class API < Grape::API
 
   include Concerns::Authenticate
@@ -18,7 +21,6 @@ class API < Grape::API
 
   rescue_from :all
   error_formatter :json, ApiErrorFormatter 
-  #use ApiLogger
 
   mount V1::Authorization
   mount V1::Attachments

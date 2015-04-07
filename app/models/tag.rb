@@ -1,5 +1,8 @@
 # app/models/tag.rb
 
+# Tag
+#
+
 class DuplicateTagError < StandardError; end
 
 

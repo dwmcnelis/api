@@ -24,7 +24,7 @@ describe V1::Tags do
 
       get '/api/v1/tags', nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
       expect(json.include?('tags')).to eq(true)
       tags = json['tags']
@@ -40,7 +40,7 @@ describe V1::Tags do
 
       get "/api/v1/tags?as=sports&query=#{tag1.name}", nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
       expect(json.include?('tags')).to eq(true)
       tags = json['tags']
@@ -56,7 +56,7 @@ describe V1::Tags do
 
       get '/api/v1/tags', nil, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'GET /api/v1/tags'
 
@@ -75,7 +75,7 @@ describe V1::Tags do
 
       get "/api/v1/tags/#{tag1.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
 	    expect(json.include?('tag')).to eq(true)
       tag = json['tag']
@@ -99,7 +99,7 @@ describe V1::Tags do
 
       get "/api/v1/tags/#{tag1.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'GET /api/v1/tags/:id'
 
@@ -128,7 +128,7 @@ describe V1::Tags do
 
       post '/api/v1/tags', params, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
 	    expect(json.include?('tag')).to eq(true)
       tag = json['tag']
@@ -161,7 +161,7 @@ describe V1::Tags do
 
       post '/api/v1/tags', params, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'POST /api/v1/tags'
 
@@ -191,7 +191,7 @@ describe V1::Tags do
 
       put "/api/v1/tags/#{tag1.id}", params, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
 	    expect(json.include?('tag')).to eq(true)
       tag = json['tag']
@@ -221,7 +221,7 @@ describe V1::Tags do
 
       put "/api/v1/tags/#{other_tag.id}", params, headers
 
-      expect(response.status).to eq(http_status(:forbidden))
+      expect(response.status).to be_status_forbidden
     end
 
 	  it 'returns unauthorized when invalid user' do
@@ -239,7 +239,7 @@ describe V1::Tags do
 
       put "/api/v1/tags/#{tag1.id}", params, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'PUT /api/v1/tags/:id'
 
@@ -261,7 +261,7 @@ describe V1::Tags do
 
       delete "/api/v1/tags/#{tag1.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
       expect(json.include?('tag')).to eq(true)
       tag = json['tag']
@@ -278,7 +278,7 @@ describe V1::Tags do
 
       delete "/api/v1/tags/#{other_tag.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:forbidden))
+      expect(response.status).to be_status_forbidden
     end
     
 	  it 'returns unauthorized when invalid user' do
@@ -289,7 +289,7 @@ describe V1::Tags do
 
       delete "/api/v1/tags/#{tag1.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'DELETE /api/v1/tags/:id'
 

@@ -1,5 +1,8 @@
 # app/api/concerns/benchmark.rb
 
+# Benchmark helper for API
+#
+
 require 'benchmark'
 
 module Concerns

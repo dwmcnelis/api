@@ -21,7 +21,7 @@ describe V1::Authorization do
 
       post '/api/v1/authorize', params, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
       expect(json.include?('token')).to eq(true)
       token = Token.new(encoded: json['token'])
@@ -40,7 +40,7 @@ describe V1::Authorization do
 
       post '/api/v1/authorize', params, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
       json = JSON.parse(response.body)
       expect(json.include?('error')).to eq(true)
       expect(json.include?('detail')).to eq(true)
@@ -70,7 +70,7 @@ describe V1::Authorization do
 
       post '/api/v1/verify', params, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
       expect(json.include?('token')).to eq(true)
       expect(json.include?('valid')).to eq(true)
@@ -101,7 +101,7 @@ describe V1::Authorization do
 
       post '/api/v1/verify', params, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
       expect(json.include?('token')).to eq(true)
       expect(json.include?('valid')).to eq(true)
@@ -130,7 +130,7 @@ describe V1::Authorization do
 
       post '/api/v1/verify', params, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
       expect(json.include?('token')).to eq(true)
       expect(json.include?('valid')).to eq(true)
@@ -157,7 +157,7 @@ describe V1::Authorization do
 
       post '/api/v1/refresh', params, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
       expect(json.include?('token')).to eq(true)
       token = Token.new(encoded: json['token'])
@@ -176,7 +176,7 @@ describe V1::Authorization do
 
       post '/api/v1/refresh', params, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
       expect(json.include?('token')).to eq(true)
       token = Token.new(encoded: json['token'])
@@ -195,7 +195,7 @@ describe V1::Authorization do
 
       post '/api/v1/refresh', params, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
 
     it 'returns unauthorized when given invalid token' do
@@ -210,7 +210,7 @@ describe V1::Authorization do
 
       post '/api/v1/refresh', params, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'POST /api/v1/refresh'
 

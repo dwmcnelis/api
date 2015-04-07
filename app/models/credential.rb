@@ -1,5 +1,8 @@
 # app/models/credential.rb
 
+# User credential
+#
+
 class Credential < ActiveRecord::Base
 
   include Concerns::Credence

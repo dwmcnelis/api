@@ -1,5 +1,8 @@
 # app/models/concerns/team_level_enum.rb
 
+# Team level enumeration
+#
+
 module Concerns
 
   module TeamLevelEnum

@@ -22,7 +22,7 @@ describe V1::Clients do
 
       get '/api/v1/clients', nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
       expect(json.include?('clients')).to eq(true)
       clients = json['clients']
@@ -38,7 +38,7 @@ describe V1::Clients do
 
       get '/api/v1/clients?per_page=1', nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
       expect(json.include?('clients')).to eq(true)
       clients = json['clients']
@@ -54,7 +54,7 @@ describe V1::Clients do
 
       get '/api/v1/clients', nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
       expect(json.include?('clients')).to eq(true)
       clients = json['clients']
@@ -69,7 +69,7 @@ describe V1::Clients do
 
       get '/api/v1/clients', nil, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'GET /api/v1/clients'
 
@@ -87,7 +87,7 @@ describe V1::Clients do
 
       get "/api/v1/clients/#{client1.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
 	    expect(json.include?('client')).to eq(true)
       client = json['client']
@@ -121,7 +121,7 @@ describe V1::Clients do
 
       get "/api/v1/clients/#{client1.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'GET /api/v1/clients/:id'
 
@@ -153,7 +153,7 @@ describe V1::Clients do
 
       post '/api/v1/clients', params, headers
 
-      expect(response.status).to eq(http_status(:created))
+      expect(response.status).to be_status_created
       json = JSON.parse(response.body)
 	    expect(json.include?('client')).to eq(true)
       client = json['client']
@@ -200,7 +200,7 @@ describe V1::Clients do
 
       post '/api/v1/clients', params, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'POST /api/v1/clients'
 
@@ -229,7 +229,7 @@ describe V1::Clients do
 
       put "/api/v1/clients/#{client1.id}", params, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
 	    expect(json.include?('client')).to eq(true)
       client = json['client']
@@ -270,7 +270,7 @@ describe V1::Clients do
 
       put "/api/v1/clients/#{client4.id}", params, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
 
 	  it 'returns unauthorized when invalid user' do
@@ -289,7 +289,7 @@ describe V1::Clients do
 
       put "/api/v1/clients/#{client1.id}", params, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'PUT /api/v1/clients/:id'
 
@@ -309,7 +309,7 @@ describe V1::Clients do
 
       delete "/api/v1/clients/#{client1.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:ok))
+      expect(response.status).to be_status_ok
       json = JSON.parse(response.body)
       expect(json.include?('client')).to eq(true)
       client = json['client']
@@ -326,7 +326,7 @@ describe V1::Clients do
 
       delete "/api/v1/clients/#{client4.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
     
 	  it 'returns unauthorized when invalid user' do
@@ -337,7 +337,7 @@ describe V1::Clients do
 
       delete "/api/v1/clients/#{client1.id}", nil, headers
 
-      expect(response.status).to eq(http_status(:unauthorized))
+      expect(response.status).to be_status_unauthorized
     end
   end # 'DELETE /api/v1/clients/:id'
 

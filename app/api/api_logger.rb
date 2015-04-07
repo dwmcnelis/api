@@ -1,5 +1,8 @@
 # app/api/api_logger.rb
 
+# API logger
+#
+
 require 'colorize'
 
 class ApiLogger < Grape::Middleware::Base
@@ -8,6 +11,8 @@ class ApiLogger < Grape::Middleware::Base
   REQUEST_COLOR = :light_blue
   RESPONSE_COLOR = :light_yellow
 
+  # Before (log request)
+  #
   def before
     super
     request = Grape::Request.new(@env)
@@ -32,6 +37,8 @@ class ApiLogger < Grape::Middleware::Base
     end
   end
 
+  # After (log response)
+  #
   def after
     response = instance_variable_get("@app_response")
     status = response[0].to_i
@@ -56,10 +63,14 @@ class ApiLogger < Grape::Middleware::Base
 
   private
 
+  # Default logger
+  #
   def logger
     Rails.logger
   end
 
+  # JSON parse and pretty print print
+  #
   def json_pp(body)
     begin
       body = body.to_json if body.kind_of?(Hash)

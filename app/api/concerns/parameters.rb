@@ -1,5 +1,8 @@
 # app/api/concerns/parameters.rb
 
+# Permitted parameter helper for API
+#
+
 module Concerns
 
   module Parameters
@@ -10,6 +13,10 @@ module Concerns
 
       helpers do
 
+        # Permitted parameters
+        #
+        # @return [Hash] permitted paramters
+        #
         def permitted_params
           @permitted_params ||= declared(params, include_missing: false, include_parent_namespaces: false)
         end

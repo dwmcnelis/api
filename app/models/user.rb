@@ -1,5 +1,8 @@
 # app/models/user.rb
 
+# User
+#
+
 require 'token'
 
 class User < ActiveRecord::Base
@@ -14,6 +17,13 @@ class User < ActiveRecord::Base
   has_many :tags
 
   class << self
+
+    # Search by username, first or last name
+    #
+    # @param [String] query
+    #
+    # @return [ActiveRecord_Relation] scope
+    #    
     def search(query)
       query = "%#{query}%"
       username = arel_table[:username].matches(query)
@@ -22,10 +32,23 @@ class User < ActiveRecord::Base
       where(username.or(first_name).or(last_name))
     end
 
+    # Find by username/password (authenticated)
+    #
+    # @param [String] username
+    # @param [String] password
+    #
+    # @return [User] user or nil
+    #
     def find_by_username_password(username, password)
       User.find_by_username(username).try(:credential).try(:authenticate_by_password, password).try(:user)
     end
 
+    # Find by token (validated)
+    #
+    # @param [String] token
+    #
+    # @return [User] user or nil
+    #
     def find_by_token(encoded)
       token = Token.new(encoded: encoded)
       if token.valid?
@@ -45,6 +68,8 @@ class User < ActiveRecord::Base
     Token.new(payload: {'uid' => self.id.to_s}, expires: expires)
   end
 
+  # Boolean methods
+  #
   [:admin, :alpha, :beta, :banned, :tos].each do |symbol|
     define_method "#{symbol}?" do
       self.send(symbol) == 1 ? true : false

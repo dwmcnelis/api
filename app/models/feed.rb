@@ -1,5 +1,8 @@
 # app/models/feed.rb
 
+# Feed (news/blog) source
+#
+
 class Feed < ActiveRecord::Base
 
   include Concerns::AsEnum
@@ -20,6 +23,12 @@ class Feed < ActiveRecord::Base
 
   class << self
 
+    # Search by name or description
+    #
+    # @param [String] query
+    #
+    # @return [ActiveRecord_Relation] scope
+    #    
     def search(query)
       query = "%#{query}%"
       name = arel_table[:name].matches(query)
@@ -27,10 +36,22 @@ class Feed < ActiveRecord::Base
       where(name.or(description))
     end
 
+    # Find or create by as,name,url
+    #
+    # @param [String] as
+    # @param [String] name
+    # @param [String] url
+    #
     def find_or_create(as, name, url, user_id=nil)
       Feed.where(url: url).first || create(as: as, name: name, url: url, user_id: user_id)
     end
 
+    # Generate uuid from digest
+    #
+    # @param [Array<Object>] args to digest
+    #
+    # @return [String] uuid
+    #
     def uuid(*args)
       sha2 = Digest::SHA2.new
       args.each do |arg|
@@ -54,6 +75,8 @@ class Feed < ActiveRecord::Base
     self.user_id.nil?
   end
 
+  # Get (memoize) document content of feed via REST request
+  #
   def get
     @get ||= RestClient.get(self.url) do |response, request, result, &block|
       @gotten_at = Time.zone.now
@@ -68,6 +91,8 @@ class Feed < ActiveRecord::Base
     end
   end
 
+  # Parsed (memoized) feed
+  #
   def parsed
     @parsed ||= Feedjira::Feed.parse(self.get)
   end
@@ -76,6 +101,8 @@ class Feed < ActiveRecord::Base
     self.last_modified_at.nil? || (self.parsed.last_modified > self.last_modified_at)
   end
 
+  # Aggregate feed by interating entries and creating articals as needed
+  #
   def aggregate!
     if self.modified?
       self.parsed.entries.each do |entry|

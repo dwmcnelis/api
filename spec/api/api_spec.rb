@@ -18,7 +18,7 @@ describe API do
 
       get '/', nil, headers
 
-      expect(response.status).to eq(http_status(:not_found))
+      expect(response.status).to be_status_not_found
     end
 
     it 'returns unauthorized when invalid user' do
@@ -29,7 +29,7 @@ describe API do
 
       get '/', nil, headers
 
-      expect(response.status).to eq(http_status(:not_found))
+      expect(response.status).to be_status_not_found
     end
   end # 'GET /'
 
@@ -46,7 +46,7 @@ describe API do
 
   #     get '/unmatched', nil, headers
 
-  #     expect(response.status).to eq(http_status(:not_found))
+  #     expect(response.status).to be_status_not_found
   #   end
 
   #   it 'returns unauthorized when invalid user' do
@@ -57,7 +57,7 @@ describe API do
 
   #     get '/unmatched', nil, headers
 
-  #     expect(response.status).to eq(http_status(:not_found))
+  #     expect(response.status).to be_status_not_found
   #   end
   # end # 'GET /unmatched'
 
@@ -75,7 +75,7 @@ describe API do
 
       post '/api/v1/authorize', params, headers
 
-      expect(response.status).to eq(http_status(:internal_server_error))
+      expect(response.status).to be_status_internal_server_error
       json = JSON.parse(response.body)
       expect(json.include?('error')).to eq(true)
       expect(json.include?('detail')).to eq(true)

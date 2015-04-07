@@ -1,5 +1,8 @@
 # app/models/concerns/as_enum.rb
 
+# Categorized as enumeration
+#
+
 module Concerns
 
   module AsEnum

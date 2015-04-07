@@ -1,5 +1,8 @@
 # app/api/v1/teams.rb
 
+# Teams API
+#
+
 module V1
 
   class Teams < API
