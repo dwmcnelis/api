@@ -113,11 +113,11 @@ describe TagPolicy do
 
   describe 'scope' do
     it 'resolves scope for admin' do  
-      expect(ClientPolicy::Scope.new(admin_user, Tag).resolve.count).to eq(Tag.count)
+      expect(TagPolicy::Scope.new(admin_user, Tag).resolve.count).to eq(Tag.count)
     end
 
     it 'resolves scope for owner' do  
-      expect(ClientPolicy::Scope.new(with_tag_user, Tag).resolve.count).to eq(with_tag_user.tags.count)
+      expect(TagPolicy::Scope.new(with_tag_user, Tag).resolve.count).to eq(with_tag_user.tags.count)
     end
   end
 

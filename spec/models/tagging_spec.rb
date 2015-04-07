@@ -7,6 +7,8 @@ describe Tagging do
 
   let!(:team) { create(:team) }
   let!(:tag) { create(:tag) }
+  let!(:other_tag) { create(:tag) }
+  let!(:tagging) { create(:tagging, as: 'sports', tag_id: other_tag.id, tagged_type: team.class.name, tagged_id: team.id) }
 
 
   it "has a valid factory" do

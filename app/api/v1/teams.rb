@@ -4,7 +4,8 @@ module V1
 
   class Teams < API
 
-    version 'v1', using: :path, vendor: 'clientbuzz', cascade: false
+    version 'v1', using: :path, vendor: 'clientbuzz'#, cascade: false
+    prefix 'api'
     format :json
 
     resource :teams do
@@ -60,8 +61,8 @@ EOS
       params do
         requires :team, :type => Hash do
           requires :name, type: String, desc: 'Name.'
-          # optional :level, type: String, desc: 'Last name.'
-          # optional :kind, type: String, desc: 'xxx.'
+          optional :level, type: String, desc: 'Level.'
+          optional :kind, type: String, desc: 'Kind.'
           # optional :league_id, type: Fixnum, desc: 'xxx.'
           # optional :division_id, type: String, desc: 'xxx.'
           # optional :founded, type: Date, desc: 'xxx.'
@@ -77,8 +78,8 @@ EOS
           @team = Team.create!({
                                  user_id: current_user.id,
                                  name: permitted_params[:team][:name],
-                                 level: permitted_params[:team][:level],
-                                 kind: permitted_params[:team][:kind],
+                                 level: permitted_params[:team][:level] ? permitted_params[:team][:level] : 'other_level',
+                                 kind: permitted_params[:team][:kind] ? permitted_params[:team][:kind] : 'other_kind',
                                  league_id: permitted_params[:team][:league_id],
                                  division_id: permitted_params[:team][:division_id],
                                  founded: permitted_params[:team][:founded],

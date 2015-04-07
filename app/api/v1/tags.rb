@@ -4,7 +4,8 @@ module V1
 
   class Tags < API
 
-    version 'v1', using: :path, vendor: 'clientbuzz', cascade: false
+    version 'v1', using: :path, vendor: 'clientbuzz'#, cascade: false
+    prefix 'api'
     format :json
 
     resource :tags do

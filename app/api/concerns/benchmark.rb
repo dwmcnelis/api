@@ -22,6 +22,7 @@ module Concerns
         # Conditionally benchmark block
         #
         # @param [Lambda] block
+        # :nocov:
         def benchmark(&block)
           if benchmarking?
             response = nil
@@ -34,6 +35,7 @@ module Concerns
             yield block
           end
         end
+        # :nocov:
 
       end
 

@@ -38,13 +38,14 @@ class Client < ActiveRecord::Base
   end
 
   def full_name
-    (!self.first_name.blank? ? self.last_name : '') + ' ' + (!self.last_name.blank? ? self.last_name : '')
+    (!self.first_name.blank? ? self.first_name : '') + ' ' + (!self.last_name.blank? ? self.last_name : '')
   end
 
   def sort_name
     (!self.last_name.blank? ? self.last_name : '') + (!self.first_name.blank? ? ', '+ self.first_name : '')
   end
 
+  # :nocov:
   def update_tags(tag_ids, user_id)
     now = tag_ids
     was = self.taggings.map(&:tag_id)
@@ -61,10 +62,13 @@ class Client < ActiveRecord::Base
       Tagging.create(as: tag.as, tag_id: tag_id, tagged_type: self.class.name, tagged_id: self.id, user_id: user_id)
     end
   end
+  # :nocov:
+
 
   # image as dragonfly attachment with static fallback
   # so you can chain :process, :thumb, :url, etc.
   # @return [Dragonfly::Attachment]
+  # :nocov:
   def image_attachment
     if self.image && self.image.image
       self.image
@@ -72,4 +76,5 @@ class Client < ActiveRecord::Base
       Dragonfly.app(:static).fetch_file(File.join(Rails.root, 'app/assets/images/client-no-image.png'))
     end
   end
+  # :nocov:
 end

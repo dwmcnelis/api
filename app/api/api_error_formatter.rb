@@ -11,11 +11,13 @@ module ApiErrorFormatter
 	        status: '500'
       	}.to_json
     	else
+        # :nocov:
     		{
 	        error:  'Exception',
 	        detail: 'Something unexpected went wrong',
 	        status: '500'
       	}.to_json
+        # :nocov:
     	end
     else
       message.to_json

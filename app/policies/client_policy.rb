@@ -1,7 +1,5 @@
 # app/policies/client_policy.rb
 
-
-
 class ClientPolicy < ApplicationPolicy
   attr_reader :user, :client
 

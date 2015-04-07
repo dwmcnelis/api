@@ -42,30 +42,41 @@ class Tag < ActiveRecord::Base
       where(name.or(aliases).or(description))
     end
 
+    # :nocov:
     def named(name)
       where(arel_table[:name].matches(name.gsub(/[%_]/, '\\\\\0'),true))
     end
+    # :nocov:
 
+    # :nocov:
     def named_any(list)
       where(arel_table[:name].matches_any(list.map {|e| e.gsub(/[%_]/, '\\\\\0')},true))
     end
+    # :nocov:
 
+    # :nocov:
     def named_like(name)
       where(arel_table[:name].matches("%#{name.gsub(/[%_]/, '\\\\\0')}%",true))
     end
+    # :nocov:
 
+    # :nocov:
     def named_like_any(list)
       where(arel_table[:name].matches_any(list.map {|e| "%#{e.gsub(/[%_]/, '\\\\\0')}%"},true))
     end
+    # :nocov:
 
     def find_or_create(as, name, description=nil, user_id=nil)
       Tag.where(as: as, name: name, description: description, user_id: user_id).first || create(as: as, name: name, description: description, user_id: user_id)
     end
 
+    # :nocov:
     def find_or_create_with_like_by_name(name)
       named_like(name).first || create(name: name)
     end
+    # :nocov:
 
+    # :nocov:
     def find_or_create_all_with_like_by_name(*list)
       list = Array(list).flatten
 
@@ -86,13 +97,17 @@ class Tag < ActiveRecord::Base
         end
       end
     end
+    # :nocov:
 
     private
 
+    # :nocov:
     def comparable_name(str)
       unicode_downcase(str.to_s)
     end
+    # :nocov:
 
+    # :nocov:
     def unicode_downcase(string)
       if ActiveSupport::Multibyte::Unicode.respond_to?(:downcase)
         ActiveSupport::Multibyte::Unicode.downcase(string)
@@ -100,7 +115,9 @@ class Tag < ActiveRecord::Base
         ActiveSupport::Multibyte::Chars.new(string).downcase.to_s
       end
     end
+    # :nocov:
 
+    # :nocov:
     def as_8bit_ascii(string)
       if defined?(Encoding)
         string.to_s.dup.force_encoding('BINARY')
@@ -108,24 +125,33 @@ class Tag < ActiveRecord::Base
         string.to_s.mb_chars
       end
     end
+    # :nocov:
 
+    # :nocov:
     def sanitize_sql_for_named_any(tag)
       sanitize_sql(['LOWER(name) = LOWER(?)', as_8bit_ascii(unicode_downcase(tag))])
     end
+    # :nocov:
 
   end # class << self
 
+  # :nocov:
   def ==(object)
     super || (object.is_a?(Tag) && name == object.name)
   end
+  # :nocov:
 
+  # :nocov:
   def to_s
     name
   end
+  # :nocov:
 
+  # :nocov:
   def count
     read_attribute(:count).to_i
   end
+  # :nocov:
 
   def owner?(user)
     self.user_id == user.id

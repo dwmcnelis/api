@@ -26,6 +26,7 @@ module Concerns
       # @param [Object] data  data to sign
       # @param [Array<Object>] optionals  optional values to include in signature digest
       # @return [String] base 64 encoded signature digest
+      # :nocov:
       def sign(secret, data, *optionals)
         return nil unless ::Concerns::Credence.digest =~ /(sha512|sha384|sha256|sha1|sha|md5|mdc2|md4|ripemd160|dss1)/
         digest = OpenSSL::Digest.new(::Concerns::Credence.digest)
@@ -46,6 +47,7 @@ module Concerns
         signed = hmac.digest
         Base64.strict_encode64(signed)
       end
+      # :nocov:
 
       # Random nonce (generated once data)
       #
@@ -67,6 +69,7 @@ module Concerns
       # Convert object value to string
       #
       # @return [String] value
+      # :nocov:
       def stringify(value)
         case value
           when Numeric
@@ -78,6 +81,7 @@ module Concerns
         end
         value
       end
+      # :nocov:
 
     end
 
@@ -113,12 +117,14 @@ module Concerns
         # Load bcrypt gem only when has_secure_password is used.
         # This is to avoid ActiveModel (and by extension the entire framework)
         # being dependent on a binary library.
+        # :nocov:
         begin
           require 'bcrypt'
         rescue LoadError
           $stderr.puts "You don't have bcrypt installed in your application. Please add it to your Gemfile and run bundle install"
           raise
         end
+        # :nocov:
 
         attr_reader :password
 
@@ -136,35 +142,45 @@ module Concerns
         end
 
         if respond_to?(:attributes_protected_by_default)
+          # :nocov:
           def self.attributes_protected_by_default #:nodoc:
             super + ['password_digest']
           end
+          # :nocov:
         end
 
+        # :nocov:
         define_singleton_method :minimum_password_length do
           ::Concerns::Credence.min_paswword_length
         end
+        # :nocov:
 
+        # :nocov:
         define_singleton_method :maximum_password_length do
           ::Concerns::Credence.max_paswword_length
         end
+        # :nocov:
 
+        # :nocov:
         define_singleton_method :suggested_password do |length=12, options={}|
           sans = options[:difficult] ? "".chars : "01IO`~^&*()_=+[]{}\|;:'\",.<>/?".chars
           ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ23456789`~!@#$%^&*()-_=+[]{}\|;:'\",.<>/?".chars-sans).sample(length).join
         end
+        # :nocov:
       end
 
 
       # Add secure key/signature two legged authentication for API's
       # @param options
       def has_secure_key_signature(options = {})
+        # :nocov:
         begin
           require 'cgi'
         rescue LoadError
           $stderr.puts "You don't have cgi installed in your application. Please add it to your Gemfile and run bundle install"
           raise
         end
+        # :nocov:
 
         include SharedInstanceMethods
         include SecureKeySignatureInstanceMethods
@@ -174,14 +190,18 @@ module Concerns
         serialize :signature_nonce, ::EncryptedString
 
         if respond_to?(:attributes_protected_by_default)
+          # :nocov:
           def self.attributes_protected_by_default #:nodoc:
             super + ::Concerns::Credence.combine
           end
+          # :nocov:
         end
 
+        # :nocov:
         define_singleton_method :generate_secret do
           return {:secret => ::Concerns::Credence.nonce}
         end
+        # :nocov:
 
       end
 
@@ -204,14 +224,18 @@ module Concerns
         serialize :multi_factor_backup_codes, ::EncryptedHash
 
         if respond_to?(:attributes_protected_by_default)
+          # :nocov:
           def self.attributes_protected_by_default #:nodoc:
             super + ['multi_factor', 'multi_factor_secret', 'multi_factor_counter', 'multi_factor_phone', 'multi_factor_phone_number', 'multi_factor_phone_backup', 'multi_factor_phone_backup_number', 'multi_factor_authenticator', 'multi_factor_backup_codes']
           end
+          # :nocov:
         end
 
+        # :nocov:
         define_singleton_method :generate_multi_factor_secret do
           return {:multi_factor_secret => ::Concerns::Credence.multi_factor_secret}
         end
+        # :nocov:
       end
 
     end
@@ -227,6 +251,7 @@ module Concerns
       # @option [String|Fixnum] backup_code  counter (HOTP) code
       # @option [Fixnum] drift  number of seconds tolerance between system clocks
       # @return [Object] self if authenticated, false if not
+      # :nocov:
       def authenticate(options={})
         password = options[:password]
         key = options[:key]
@@ -247,6 +272,7 @@ module Concerns
           false
         end
       end
+      # :nocov:
     end
 
     module SecurePasswordInstanceMethods
@@ -263,9 +289,11 @@ module Concerns
       end
 
       # Set unencrypted password for confirmation
+      # :nocov:
       def password_confirmation=(unencrypted_password)
         @password_confirmation = unencrypted_password
       end
+      # :nocov:
 
       # Verify an unencrypted password against the encrypted password digest
       #
@@ -287,6 +315,7 @@ module Concerns
 
     module SecureKeySignatureInstanceMethods
       # Digitally sign self into encrypted signature
+      # :nocov:
       def signature
         combined = [self.signature_nonce]
         ::Concerns::Credence.combine.each do |combine|
@@ -294,11 +323,14 @@ module Concerns
         end
         ::Concerns::Credence.sign(::Concerns::Credence.secret_key, self.id, *combined)
       end
+      # :nocov:
 
       # Provide a set of digital signature details
+      # :nocov:
       def keys
         {:key => self.id, :secret => ::Concerns::Credence.secret_key, :signature => self.signature, :secret_encoded => CGI.escape(::Concerns::Credence.secret_key), :signature_encoded => CGI.escape(self.signature)}
       end
+      # :nocov:
 
       # Generate a new nonce
       def generate_nonce
@@ -310,6 +342,7 @@ module Concerns
       # @option [String] key  object identifier
       # @option [Signature] signature  digitally signed HMAC digest
       # @return [Boolean] is verified
+      # :nocov:
       def verify_key_signature(key, signature)
         combined = [self.signature_nonce]
         ::Concerns::Credence.combine.each do |combine|
@@ -317,15 +350,18 @@ module Concerns
         end
         signature == ::Concerns::Credence.sign(::Concerns::Credence.secret_key, key, *combined)
       end
+      # :nocov:
 
       # Authenticate object by key/signature
       #
       # @option [String] key  object identifier
       # @option [Signature] signature  digitally signed HMAC digest
       # @return [Object] self if authenticated, false if not
+      # :nocov:
       def authenticate_by_key_signature(key, signature)
         self.verify_key_signature(key, signature) && self
       end
+      # :nocov:
 
       # Ensure that nonce is never blank
       def ensure_nonce
@@ -337,14 +373,18 @@ module Concerns
       # Generate a timed (TOTP) code
       #
       # @return [String] timed_code six digit timed code that expires in 30 seconds
+      # :nocov:
       def generate_timed_code
         totp.now(true)
       end
+      # :nocov:
 
       # Creates a new TOTP object using secret, issuer, and our interval.
+      # :nocov:
       def totp
         @totp ||= ROTP::TOTP.new(self.multi_factor_secret, issuer: 'McNelis', interval: 5.minutes.to_i)
       end
+      # :nocov:
 
       # Verify a timed (TOTP) code
       #
@@ -352,11 +392,13 @@ module Concerns
       # @param [Hash] options
       # @option [Fixnum] drift  number of seconds tolerance between system clocks
       # @return [Boolean] is verified
+      # :nocov:
       def verify_timed_code(code, options={})
         drift = options[:drift] || 5.minutes.to_i
         code.gsub!(/[^0-9]/, '') if code.present?
         (code =~ /^\d{6}$/) && totp.verify_with_drift(code, drift)
       end
+      # :nocov:
 
       # Authenticate object by timed (TOTP) code
       #
@@ -364,9 +406,11 @@ module Concerns
       # @param [Hash] options
       # @option [Fixnum] drift  number of seconds tolerance between system clocks
       # @return [Object] self if authenticated, false if not
+      # :nocov:
       def authenticate_by_timed_code(code, options={})
         self.verify_timed_code(code, options) && self
       end
+      # :nocov:
 
       # Generate an hmac counter (HOTP) backup code
       #
@@ -399,6 +443,7 @@ module Concerns
       #
       # @param [String] code  backup code to verify
       # @return [Boolean] is removed
+      # :nocov:
       def remove_backup_code(code)
         if self.multi_factor_backup_codes.include?(code)
           self.multi_factor_backup_codes.delete(code)
@@ -410,17 +455,20 @@ module Concerns
           nil
         end
       end
+      # :nocov:
 
       # Verify a timed (HOTP) code/counter pair
       #
       # @option [String|Fixnum] backup_code  counter (HOTP) code
       # @return [Boolean] is verified
+      # :nocov:
       def verify_backup_code(code)
         return false if code.blank?
         code = code.gsub(/[^0-9]/, '')
         counter = self.multi_factor_backup_codes[code]
         counter.present? && code =~ /^\d{8}$/ && hotp.verify(code, counter)
       end
+      # :nocov:
 
       # Authenticate object by timed (HOTP) code/counter pair
       #
@@ -436,18 +484,22 @@ module Concerns
       # otpauth://totp/McNelis:kwest@advisors.com?issuer=McNelis&secret=4n6fg5wxsh5buiwr
       #
       # @return [Boolean] uri
+      # :nocov:
       def provisioning_uri
         totp.provisioning_uri("McNelis:#{self.username}")
       end
+      # :nocov:
 
 
       # Authenticator application provisioning key
       # otpauth://totp/McNelis:kwest@advisors.com?issuer=McNelis&secret=4n6fg5wxsh5buiwr
       #
       # @return [Boolean] uri
+      # :nocov:
       def provisioning_key
         self.multi_factor_secret.gsub(/.{4}(?=.)/, '\0 ')
       end
+      # :nocov:
 
 
       # Send a timed (TOTP) code via SMS to a given phone
@@ -455,6 +507,7 @@ module Concerns
       # @param [String] code  six digit timed code that expires in 30 seconds
       # @param [String] phone  SMS capable phone to receive code
       # @return [Boolean] sent
+      # :nocov:
       def send_code_sms(code, phone)
         phone = phone.gsub(/[^0-9]/, '').gsub(/^1/, '')
         twilio = YAML.load_file(File.join(Rails.root, 'config', 'twilio.yml'))[Rails.env]
@@ -472,12 +525,15 @@ module Concerns
         end
         sent
       end
+      # :nocov:
 
       # Enable multi factor authentication
+      # :nocov:
       def enable_multi_factor
         self.ensure_multi_factor
         self.multi_factor = true
       end
+      # :nocov:
 
       # Ensure multi factor authentication
       def ensure_multi_factor
@@ -488,10 +544,12 @@ module Concerns
       end
 
       # Disables multi factor authentication for a user and clears all settings
+      # :nocov:
       def disable_multi_factor
         attributes = {multi_factor: false, multi_factor_phone: false, multi_factor_phone_number: nil, multi_factor_phone_backup: false, multi_factor_phone_backup_number: false, multi_factor_authenticator: false}
         self.update_attributes!(attributes)
       end
+      # :nocov:
     end
 
   end # Credence

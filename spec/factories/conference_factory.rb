@@ -1,4 +1,4 @@
-# spec/factories/team_factory.rb
+# spec/factories/conference_factory.rb
 
 FactoryGirl.define do
 

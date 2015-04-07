@@ -11,13 +11,17 @@ module Concerns
 				{other_level: 0, professional: 1, olympic: 2, college: 3, high_school: 4, middle_school: 5, town: 6, club: 7}
 	    end
 
+		  # :nocov:
 	    def level_code(value)
 	    	level_enum[value.to_sym]
 	    end
+		  # :nocov:
 
+		  # :nocov:
 	    def level_value(code)
 	    	level_enum.invert[code]
 			end
+		  # :nocov:
 	  end
 
 	end # TeamLevelEnum

@@ -4,7 +4,8 @@ module V1
 
   class Attachments < API
 
-    version 'v1', using: :path, vendor: 'clientbuzz', cascade: false
+    version 'v1', using: :path, vendor: 'clientbuzz'#, cascade: false
+    prefix 'api'
     format :json
 
     namespace :attachments do

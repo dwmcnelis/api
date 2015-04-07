@@ -10,28 +10,36 @@ module Concerns
 
       helpers do
 
+        # :nocov:
         def find_policy_scope(user, scope)
           policy_scope = ::Pundit::PolicyFinder.new(scope).scope
           policy_scope.new(user, scope).resolve if policy_scope
         end
+        # :nocov:
 
+        # :nocov:
         def find_policy_scope!(user, scope)
           ::Pundit::PolicyFinder.new(scope).scope!.new(user, scope).resolve
         end
+        # :nocov:
 
+        # :nocov:
         def find_policy(user, record)
           policy = ::Pundit::PolicyFinder.new(record).policy
           policy.new(user, record) if policy
         end
+        # :nocov:
 
         def find_policy!(user, record)
           ::Pundit::PolicyFinder.new(record).policy!.new(user, record)
         end
 
+        # :nocov:
         def policy_scope(scope)
           @pundit_policy_scoped = true
           policy_scopes[scope] ||= find_policy_scope!(pundit_user, scope)
         end
+        # :nocov:
 
         def policy(record)
           policies[record] ||= find_policy!(pundit_user, record)
@@ -41,9 +49,11 @@ module Concerns
           @pundit_policies ||= {}
         end
 
+        # :nocov:
         def policy_scopes
           @pundit_policy_scopes ||= {}
         end
+        # :nocov:
 
         def pundit_user
           current_user

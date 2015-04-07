@@ -15,10 +15,10 @@ describe V1::Clients do
   	let!(:invalid_user) { nil }
 
     it 'returns client array when with clients' do
-    	headers = merge_headers(
-    		auth_header(with_client_user),
-    		accept_header('application/json')
-    	)
+      headers = merge_headers(
+        auth_header(with_client_user),
+        accept_header('application/json')
+      )
 
       get '/api/v1/clients', nil, headers
 
@@ -28,6 +28,22 @@ describe V1::Clients do
       clients = json['clients']
       expect(clients.count).to eq(3)
       expect(clients.map{|e| e['id']}.sort).to eq([client1.id, client2.id, client3.id].sort)
+    end
+
+    it 'returns paginated client array when with clients' do
+      headers = merge_headers(
+        auth_header(with_client_user),
+        accept_header('application/json')
+      )
+
+      get '/api/v1/clients?per_page=1', nil, headers
+
+      expect(response.status).to eq(http_status(:ok))
+      json = JSON.parse(response.body)
+      expect(json.include?('clients')).to eq(true)
+      clients = json['clients']
+      expect(clients.count).to eq(1)
+      expect([client1.id, client2.id, client3.id].include?(clients.first['id'])).to eq(true)
     end
 
     it 'returns an empty array when without clients' do

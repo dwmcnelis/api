@@ -11,13 +11,17 @@ module Concerns
 				{ male: 0, female: 1, unknown: 2}
 	    end
 
+		  # :nocov:
 	    def gender_code(value)
 	    	gender_enum[value.to_sym]
 	    end
+		  # :nocov:
 
+		  # :nocov:
 	    def gender_value(code)
 	    	gender_enum.invert[code]
 			end
+		  # :nocov:
 	  end
 
 	end # GenderEnum

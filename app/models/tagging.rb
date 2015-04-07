@@ -29,14 +29,11 @@ class Tagging < ActiveRecord::Base
 
     class << self
 
-        def search(query) 
-          where(arel_table[:as].matches("%#{query}%"))
-        end
-
     end # class << self
 
     private
 
+    # :nocov:
     def remove_unused_tags
         if true
           tag.destroy if tag.reload.taggings_count.zero?
@@ -44,4 +41,5 @@ class Tagging < ActiveRecord::Base
           tag.destroy if tag.reload.taggings.count.zero?
         end
     end
+    # :nocov:
 end

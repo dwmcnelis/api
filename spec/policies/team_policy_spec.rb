@@ -109,11 +109,11 @@ describe TeamPolicy do
 
   describe 'scope' do
     it 'resolves scope for admin' do  
-      expect(ClientPolicy::Scope.new(admin_user, Team).resolve.count).to eq(Team.count)
+      expect(TeamPolicy::Scope.new(admin_user, Team).resolve.count).to eq(Team.count)
     end
 
     it 'resolves scope for owner' do  
-      expect(ClientPolicy::Scope.new(with_team_user, Team).resolve.count).to eq(with_team_user.teams.count)
+      expect(TeamPolicy::Scope.new(with_team_user, Team).resolve.count).to eq(with_team_user.teams.count)
     end
   end
 

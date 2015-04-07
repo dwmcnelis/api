@@ -1,3 +1,5 @@
+# lib/token.rb
+
 class Token
 
   TOKEN_GRACE = 5*60*1000 # Five minutes in milliseconds
@@ -72,6 +74,7 @@ class Token
     @payload.fetch(key, nil) if @payload
   end
 
+  # :nocov:
   def info
     revalidate
     puts "secret: #{@secret}"
@@ -84,6 +87,7 @@ class Token
     puts "reason: #{@reason}"
     puts "invalid: #{@invalid}"
   end
+  # :nocov:
 
   private
 
