@@ -4,7 +4,7 @@
 # i.e. be_status_ok or be_status_not_found
 #
 
-{
+HTTP_STATUSES = {
 		#	1xx Informational
 		continue: 100,
 		switching_protocols: 101,
@@ -59,12 +59,28 @@
 		http_version_not_supported: 505,
 		insufficient_storage: 507,
 		not_extended: 510
-	}.each do |symbol, code|
+	}
+
+	HTTP_STATUSES.each do |symbol, code|
 
 		RSpec::Matchers.define "be_status_#{symbol}" do |first|
 		  match do |actual|
 		  	actual == code
 		  end
+
+	    failure_message_for_should do |actual|
+		    "expected: #{symbol}\ngot: #{HTTP_STATUSES.invert[actual]}"
+		  end
+
+		  failure_message_for_should_not do |actual|
+		    "expected: not #{symbol}\ngot: #{HTTP_STATUSES.invert[actual]}"
+		  end
+
+		  description do
+		    "expected http statuses"
+		  end
+
 		end
+
 
 	end

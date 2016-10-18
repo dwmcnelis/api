@@ -26,7 +26,9 @@ module Api
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.middleware.use ActionDispatch::Cookies
+
     # Custom configuration settings
-    config.buzz = ActiveSupport::OrderedOptions.new 
+    config.buzz = ActiveSupport::OrderedOptions.new
   end
 end

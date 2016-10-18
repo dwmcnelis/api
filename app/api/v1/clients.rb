@@ -2,6 +2,7 @@
 
 # Clients API
 #
+require 'colorize'
 
 module V1
 
@@ -25,7 +26,12 @@ EOS
         benchmark do
           authenticate!
           authorize! Client, :index?
-          paginate current_user.clients
+          puts "cookies: #{request.cookies}".colorize(:light_red)
+
+          render({
+            clients: paginate(current_user.clients).to_a.map { |client| client.as_json(root: false)},
+            'token' => current_user.generate_token(expires: Token.expires(TOKEN_DURATION)).to_s
+          })
         end
       end
 
@@ -44,7 +50,11 @@ EOS
           authenticate!
           @client = exists! Client.find_by_id(permitted_params[:id])
           authorize! @client, :show?
-          @client
+
+          render({
+            client: @client.as_json(root: false),
+            'token' => current_user.generate_token(expires: Token.expires(TOKEN_DURATION)).to_s
+          })
         end
       end
 
@@ -83,7 +93,10 @@ EOS
                                  buzzes: permitted_params[:client][:buzzes],
                                  notes: permitted_params[:client][:notes]
                                })
-          @client
+          render({
+            client: @client.as_json(root: false),
+            'token' => current_user.generate_token(expires: Token.expires(TOKEN_DURATION)).to_s
+          })
         end
       end
 
@@ -116,7 +129,11 @@ EOS
           @client.update(permitted_params[:client])
           @client.update_tags(permitted_params[:client][:tag_ids], current_user.id) if permitted_params[:client][:tag_ids]
           @client = Client.find_by_id(permitted_params[:id])
-          @client
+
+          render({
+            client: @client.as_json(root: false),
+            'token' => current_user.generate_token(expires: Token.expires(TOKEN_DURATION)).to_s
+          })
         end
       end
 
@@ -134,7 +151,11 @@ EOS
           authenticate!
           @client = exists! Client.find_by_id(permitted_params[:id])
           authorize! @client, :destroy?
-          @client.destroy
+
+          render({
+            client: @client.destroy.as_json(root: false),
+            'token' => current_user.generate_token(expires: Token.expires(TOKEN_DURATION)).to_s
+          })
         end
       end
 

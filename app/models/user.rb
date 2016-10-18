@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     # @param [String] query
     #
     # @return [ActiveRecord_Relation] scope
-    #    
+    #
     def search(query)
       query = "%#{query}%"
       username = arel_table[:username].matches(query)
@@ -66,6 +66,16 @@ class User < ActiveRecord::Base
   def generate_token(options={})
     expires ||= options[:expires]
     Token.new(payload: {'uid' => self.id.to_s}, expires: expires)
+  end
+
+  def short_name
+    return self.first_name if self.first_name.present?
+    return self.last_name if self.last_name.present?
+    'You'
+  end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
   end
 
   # Boolean methods

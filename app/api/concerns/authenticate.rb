@@ -24,6 +24,8 @@ module Concerns
             if request.headers['Authorization'].present?
               pieces = request.headers['Authorization'].split(' ')
               pieces.length == 2 && pieces[0] == 'Bearer' ? pieces[1] : nil
+            elsif request.cookies['token'].present?
+              request.cookies['token']
             end
           end
         end

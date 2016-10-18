@@ -19,7 +19,7 @@ class API < Grape::API
   formatter :json, Grape::Formatter::ActiveModelSerializers
 
   rescue_from :all
-  error_formatter :json, ApiErrorFormatter 
+  error_formatter :json, ApiErrorFormatter
 
   mount V1::Authorization
   mount V1::Attachments

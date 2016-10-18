@@ -2,6 +2,7 @@
 
 # Authorization API
 #
+require 'colorize'
 
 module V1
 
@@ -25,7 +26,7 @@ EOS
       end
       post :authorize do
         benchmark do
-          @user = User.find_by_username_password(params[:username],params[:password])
+          @user = User.find_by_username_password(params[:username], params[:password])
           if @user
             {'token' => @user.generate_token(expires: Token.expires(TOKEN_DURATION)).to_s}
           else
